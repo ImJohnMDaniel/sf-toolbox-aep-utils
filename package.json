@@ -46,8 +46,18 @@
       "@oclif/plugin-help"
     ],
     "topics": {
-      "toolbox aep": {
-        "description": "Commands focused on management of Apex classes related to Apex Enterprise Patterns based Selectors and Domains"
+      "toolbox": {
+        "description": "description for toolbox",
+        "subtopics": {
+          "aep": {
+            "description": "Commands focused on management of Apex classes related to Apex Enterprise Patterns based Selectors and Domains",
+            "subtopics": {
+              "generate": {
+                "description": "description for toolbox.aep.generate"
+              }
+            }
+          }
+        }
       }
     },
     "flexibleTaxonomy": true
