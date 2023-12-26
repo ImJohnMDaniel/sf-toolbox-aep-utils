@@ -1,0 +1,18 @@
+Id,FirstName,LastName,PersonEmail,Phone,PersonMobilePhone,DateOfBirth__pc,Gender__pc,RecordTypeId,IsPersonAccount,RecordType.DeveloperName
+0016C000004NH4NQAW,Franklin,Armstrong,franklin@peanuts.com,(804) 555-0002,,1933-11-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NNRYQA4,Charlie,Brown,charles@acme.com,,,1955-12-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4MQAW,Charlie,Brown,charles@peanuts.com,(804) 555-0001,,1933-12-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4uQAG,Sally,Brown,sally@peanuts.com,(804) 555-0001,,1935-06-25,Female,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4yQAG,Violet,Gray,violet@peanuts.com,(804) 555-0014,,1934-02-25,Female,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4pQAG,Marcie,Johnson,marcie@peanuts.com,(804) 777-0005,(804) 777-0005,1933-12-25,Female,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4sQAG,Pig Pen,Pepperdine,pigpen@peanuts.com,(804) 555-0008,(804) 777-0008,1935-08-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4rQAG,Peppermint Patty,Reichardt,priscilla@peanuts.com,(804) 555-0007,,1933-10-25,,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NiD5QAK,Charlie,Schultz,,,,1930-12-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4zQAG,Woodstock,The Bird,,(804) 555-0015,,1937-12-25,,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4qQAG,Olaf,The Dog,,(804) 555-0006,,1935-03-25,,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4wQAG,Snoopy,The Dog,snoopy@redbaron.com,(804) 555-0001,,1934-12-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4xQAG,Spike,The Dog,,(804) 555-0013,,1930-03-25,,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4vQAG,Schroeder,The Pianist,piano@peanuts.com,(804) 555-0011,,1933-09-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4OQAW,Linus,van Pelt,linus@peanuts.com,(804) 555-0003,,1934-01-25,Male,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4PQAW,Lucy,van Pelt,manager@peanuts.com,(804) 555-0003,(804) 777-0004,1933-06-25,Female,0120U000002eWgAQAU,true,PeanutsGang
+0016C000004NH4tQAG,ReRun,van Pelt,rerun@peanuts.com,(804) 555-0009,,1934-05-25,Male,0120U000002eWgAQAU,true,PeanutsGang

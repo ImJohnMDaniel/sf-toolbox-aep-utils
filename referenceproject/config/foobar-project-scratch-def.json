@@ -1,0 +1,87 @@
+{
+  "orgName": "FOOBAR Company",
+  "edition": "Enterprise",
+  "hasSampleData": "true",
+  "features": [
+    "Communities",
+    "CustomerCommunityLogin",
+    "CustomerCommunityPlus",
+    "CustomerCommunityPlusLogin",
+    "DebugApex",
+    "FieldAuditTrail",
+    "FlowSites",
+    "ForceComPlatform",
+    "PartnerCommunity",
+    "PersonAccounts",
+    "PlatformCache",
+    "ProviderFreePlatformCache",
+    "PublishExpBuilderBasedSna",
+    "PublishAuraExpBuilderBasedSna",
+    "Sites"
+  ],
+  "settings": {
+    "communitiesSettings": {
+      "enableUnsupportedBrowserModalPref": true,
+      "enableGuestRecordReassignOrgPref": true,
+      "enableNetPortalUserReportOpts": true,
+      "enableCspContactVisibilityPref": true,
+      "enableOotbProfExtUserOpsEnable": true,
+      "canModerateAllFeedPosts": true,
+      "canModerateInternalFeedPosts": true,
+      "embeddedVisualforcePages": true,
+      "enableExternalAccHierPref": true,
+      "enablePRMAccRelPref": true,
+      "enableNetworksEnabled": true
+    },
+    "contentSettings": {
+      "skipContentAssetTriggers": true
+    },
+    "emailAdministrationSettings": {
+      "enableEmailSpfCompliance": false,
+      "enableEmailSenderIdCompliance": false,
+      "enableHandleBouncedEmails": false
+    },
+    "emailTemplateSettings": {
+      "enableTemplateEnhancedFolderPref": true
+    },
+    "enhancedNotesSettings": {
+      "enableEnhancedNotes": true
+    },
+    "experienceBundleSettings": {
+      "enableExperienceBundleMetadata": true
+    },
+    "flowSettings": {
+      "enableFlowPauseEnabled": true
+    },
+    "languageSettings": {
+      "enableTranslationWorkbench": true
+    },
+    "nameSettings": {
+      "enableMiddleName": true,
+      "enableNameSuffix": true
+    },
+    "securitySettings": {
+      "sessionSettings": {
+        "sessionTimeout": "TwelveHours"
+      }
+    },
+    "userInterfaceSettings": {
+      "enableCollapsibleSections": true,
+      "enableQuickCreate": true,
+      "enableHoverDetails": true,
+      "enableAsyncRelatedLists": true,
+      "enableExternalObjectAsyncRelatedLists": true,
+      "enableInlineEdit": true
+    },
+    "userManagementSettings": {
+      "enableEnhancedPermsetMgmt": true,
+      "enableEnhancedProfileMgmt": true,
+      "enableNewProfileUI": true
+    }
+  },
+  "objectSettings": {
+    "account": {
+      "defaultRecordType": "default"
+    }
+  }
+}

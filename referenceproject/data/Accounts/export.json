@@ -1,0 +1,15 @@
+{
+  "allOrNone": true,
+  "objects": [
+    {
+      "query": "SELECT Id, FirstName, LastName, PersonEmail, Phone, PersonMobilePhone, DateOfBirth__pc, Gender__pc, RecordTypeId FROM Account WHERE Recordtype.DeveloperName = 'PeanutsGang' ORDER BY Name",
+      "operation": "Upsert",
+      "externalId": "FirstName"
+    },
+    {
+      "query": "select Id, DeveloperName, SobjectType from RecordType where SObjectType = 'Account' and DeveloperName = 'PeanutsGang' order by SobjectType, DeveloperName",
+      "operation": "Upsert",
+      "externalId": "DeveloperName"
+    }
+  ]
+}

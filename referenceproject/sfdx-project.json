@@ -1,0 +1,36 @@
+{
+  "packageDirectories": [
+    {
+      "path": "sfdx-source/unpackaged",
+      "default": true,
+      "definitionFile": "config/foobar-project-scratch-def.json",
+      "dependencies": [
+        {
+          "package": "reference-fflib-apex-mocks@1.1.0-3"
+        },
+        {
+          "package": "reference-fflib-apex-common@1.0.0-1"
+        },
+        {
+          "package": "reference-force-di@1.0.0-1"
+        },
+        {
+          "package": "reference-at4dx@1.0.0-2"
+        }
+      ]
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "59.0",
+  "packageAliases": {
+    "reference-fflib-apex-mocks": "0Ho1T000000PAsXSAW",
+    "reference-fflib-apex-common": "0Ho1T000000PAscSAG",
+    "reference-force-di": "0Ho1T000000PAshSAG",
+    "reference-at4dx": "0Ho1T000000PAsmSAG",
+    "reference-fflib-apex-mocks@1.1.0-3": "04t1T000000MD8rQAG",
+    "reference-fflib-apex-common@1.0.0-1": "04t1T000000MD8wQAG",
+    "reference-force-di@1.0.0-1": "04t1T000000MD0YQAW",
+    "reference-at4dx@1.0.0-2": "04t1T000000MD96QAG"
+  }
+}

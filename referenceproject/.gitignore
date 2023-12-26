@@ -1,0 +1,14 @@
+
+# reference DX project related
+.sfdx/
+.sf/
+referenceproject/.sfdx/
+referenceproject/.sf/
+temp/
+.history/
+# ....SFDX SFDMU Plugin Related
+data/**/logs/
+data/**/source/
+data/**/target/
+data/**/MissingParentRecordsReport.csv
+data/**/CSVIssuesReport.csv
