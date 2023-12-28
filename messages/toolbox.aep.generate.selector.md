@@ -6,13 +6,13 @@ Summary of a command.
 
 More information about a command. Don't repeat the summary.
 
-# flags.name.summary
+# flags.target-org.summary
 
-Description of a flag.
+The org to get data from
 
-# flags.name.description
+# flags.target-org.description
 
-More information about a flag. Don't repeat the summary.
+Need to put together a flags.target-org.description
 
 # examples
 

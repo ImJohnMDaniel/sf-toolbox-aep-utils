@@ -16,36 +16,11 @@ describe('toolbox aep generate selector', () => {
   });
 
   it('runs toolbox aep generate selector', async () => {
-    await ToolboxAepGenerateSelector.run([]);
+    await ToolboxAepGenerateSelector.run(['--target-org', 'bluefish']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
       .join('\n');
     expect(output).to.include('var'); // why does it show /var/folders/th/tkh1fkm90v34nrl6hcl2  ????
   });
-
-  // it('runs hello', async () => {
-  //   await ToolboxAepGenerateSelector.run([]);
-  //   const output = sfCommandStubs.log
-  //     .getCalls()
-  //     .flatMap((c) => c.args)
-  //     .join('\n');
-  //   expect(output).to.include('hello world');
-  // });
-
-  // it('runs hello with --json and no provided name', async () => {
-  //   const result = await ToolboxAepGenerateSelector.run([]);
-  //   expect(result.path).to.equal(
-  //     '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/src/commands/toolbox/aep/generate/selector.ts'
-  //   );
-  // });
-
-  // it('runs hello world --name Astro', async () => {
-  //   await ToolboxAepGenerateSelector.run(['--name', 'Astro']);
-  //   const output = sfCommandStubs.log
-  //     .getCalls()
-  //     .flatMap((c) => c.args)
-  //     .join('\n');
-  //   expect(output).to.include('hello Astro');
-  // });
 });

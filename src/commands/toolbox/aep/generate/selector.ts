@@ -1,7 +1,12 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// import { ConfigAggregator, Messages, Org, SfError, SfProject } from '@salesforce/core';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
-import { Messages, SfProject } from '@salesforce/core';
+import {
+  Messages,
+  // Org,
+  SfProject,
+} from '@salesforce/core';
 
 Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.selector');
@@ -16,16 +21,16 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
   public static readonly examples = messages.getMessages('examples');
 
   public static readonly flags = {
-    name: Flags.string({
-      summary: messages.getMessage('flags.name.summary'),
-      description: messages.getMessage('flags.name.description'),
-      char: 'n',
-      required: false,
+    'target-org': Flags.requiredOrg({
+      summary: messages.getMessage('flags.target-org.summary'),
+      description: messages.getMessage('flags.target-org.description'),
+      char: 'o',
+      required: true,
     }),
   };
 
   public async run(): Promise<ToolboxAepGenerateSelectorResult> {
-    // const { flags } = await this.parse(ToolboxAepGenerateSelector);
+    const { flags } = await this.parse(ToolboxAepGenerateSelector);
 
     // const name = flags.name ?? 'world'; // this is the default for the command flag "name"
 
@@ -36,7 +41,15 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     // const basePath: string = SfProject.resolveProjectPathSync();
     const basePath: string = await SfProject.resolveProjectPath();
 
-    // console.log(basePath);
+    this.log(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      `flags == ${flags['target-org'].getUsername()}`
+    );
+    // const conn = this.org.getConnection();
+    // const org = await Org.create({ aliasOrUsername: opts['target-org'] });
+
+    // const result: DescribeSObjectResult = await conn.describe(this.args.sObjectName);
+    // const sobj: sObject = new sObject(result);
 
     // if (!project) {
     //   throw new SfdxError(messages.getMessage('errorNoSfdxProject'));
@@ -48,12 +61,12 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     // const sobj: sObject = new sObject(result);
 
     this.log(
-      //   `hello ${name} from /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/src/commands/toolbox/aep/generate/selector.ts`
-      `${basePath}`
+      //   `hello ${ name } from / Users / john / workspace / _cli - related / sf - toolbox - aep - utils / src / commands / toolbox / aep / generate / selector.ts`
+      `basePath == ${basePath} `
     );
     return {
       // path: '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/src/commands/toolbox/aep/generate/selector.ts',
-      path: `${basePath}`,
+      path: `${basePath} `,
     };
   }
 }
