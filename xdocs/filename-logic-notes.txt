@@ -1,0 +1,75 @@
+SEE /src/utils/sObjectNames.ts for implementation
+
+sobjectDescribeResult == Property__c
+classPrefix == 'FooBar'
+
+getFields
+getApiName
+  "Property__c" -- this.sobjectDescribeResult.name;
+getBaseName
+  "Properties" -- getApiName.replace("__c").replace("_").replace(Right'y'With'ies')
+  -- the Name should make basename plural
+getBaseSelectorName
+  "PropertiesSelector" -- getBaseName + "Selector"
+getBaseDomainName
+  "Properties" -- getBaseName
+
+// Selectors  
+  // Interface 
+    getSelectorInterfaceClassName
+      "FOOBAR_IPropertiesSelector" -- classPrefix + "_" + "I" + getBaseSelectorName
+    getSelectorInterfaceFileName
+      "FOOBAR_IPropertiesSelector.cls" -- getSelectorInterfaceClassName + fileNameExtensionForClass
+    getSelectorInterfaceMetadataFileName
+      "FOOBAR_IPropertiesSelector.cls-meta.xml" -- getSelectorInterfaceFileName + fileNameExtensionForClassMetadata
+  // Implementation 
+    getSelectorImplementationClassName
+      "FOOBAR_PropertiesSelector" -- classPrefix + "_" + getBaseSelectorName
+    getSelectorImplementationFileName 
+      "FOOBAR_PropertiesSelector.cls" -- getSelectorImplementationClassName + fileNameExtensionForClass
+    getSelectorImplementationMetadataFileName
+      "FOOBAR_PropertiesSelector.cls-meta.xml" -- getSelectorImplementationClassName + fileNameExtensionForClassMetadata  
+  // Unit Test 
+    getSelectorUnitTestClassName
+      "FOOBAR_PropertiesSelectorTest" -- getSelectorImplementationClassName + "Test"
+    getSelectorUnitTestFileName
+      "FOOBAR_PropertiesSelector.cls" -- getSelectorUnitTestClassName + fileNameExtensionForClass
+    getSelectorUnitTestMetadataFileName
+      "FOOBAR_PropertiesSelector.cls-meta.xml" -- getSelectorUnitTestFileName + fileNameExtensionForClassMetadata  
+
+  // if AT4DX, then need to add mappings
+  // ApplicationFactory_SelectorBinding__mdt
+    getSelectorBindingMetadataFileName
+      "ApplicationFactory_SelectorBinding__mdt.PropertySObjectBinding.md-meta.xml"
+    -- eventually, need to develop a way to determine if the SObject entry belongs on the BindingSObject__c field or the BindingSObjectAlternate__c field
+
+// Domains
+  // Interface 
+    getDomainInterfaceClassName
+      "FOOBAR_IProperties" -- classPrefix + "_" + "I" + getBaseDomainName
+    getDomainInterfaceFileName
+      "FOOBAR_IProperties.cls" -- getDomainInterfaceClassName + fileNameExtensionForClass
+    getDomainInterfaceMetadataFileName
+      "FOOBAR_IProperties.cls-meta.xml" -- getDomainInterfaceFileName + fileNameExtensionForClassMetadata
+  // Implementation 
+    getDomainImplementationClassName
+      "FOOBAR_Properties" -- classPrefix + "_" + getBaseDomainName
+    getDomainImplementationFileName 
+      "FOOBAR_Properties.cls" -- getDomainImplementationClassName + fileNameExtensionForClass
+    getDomainImplementationMetadataFileName
+      "FOOBAR_Properties.cls-meta.xml" -- getDomainImplementationClassName + fileNameExtensionForClassMetadata  
+  // Unit Test 
+    getDomainUnitTestClassName
+      "FOOBAR_PropertiesTest" -- getDomainImplementationClassName + "Test"
+    getDomainUnitTestFileName
+      "FOOBAR_Properties.cls" -- getDomainUnitTestClassName + fileNameExtensionForClass
+    getDomainUnitTestMetadataFileName
+      "FOOBAR_Properties.cls-meta.xml" -- getDomainUnitTestFileName + fileNameExtensionForClassMetadata  
+
+  // if AT4DX, then need to add mappings
+  // ApplicationFactory_DomainBinding__mdt
+    getDomainBindingMetadataFileName
+      "ApplicationFactory_DomainBinding__mdt.PropertySObjectBinding.md-meta.xml"
+    -- eventually, need to develop a way to determine if the SObject entry belongs on the BindingSObject__c field or the BindingSObjectAlternate__c field
+
+  

@@ -1,0 +1,11 @@
+@dx-cli-toolbox/sf-toolbox-aep-utils
+
+Commands for development using the Apex Enterprise Patterns frameworks
+
+toolbox aep generate
+
+toolbox aep generate selector
+
+toolbox aep generate domain 
+
+toolbox aep generate --sobject Account --at4dx
