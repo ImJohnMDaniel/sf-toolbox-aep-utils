@@ -16,7 +16,7 @@ describe('toolbox aep generate selector', () => {
   });
 
   it('runs toolbox aep generate selector', async () => {
-    await ToolboxAepGenerateSelector.run(['--target-org', 'bluefish']);
+    await ToolboxAepGenerateSelector.run(['--target-org', 'bluefish', '--sobject', 'Account']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)

@@ -1,12 +1,11 @@
+/* eslint-disable sf-plugin/no-missing-messages */
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-// import { ConfigAggregator, Messages, Org, SfError, SfProject } from '@salesforce/core';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
-import {
-  Messages,
-  // Org,
-  SfProject,
-} from '@salesforce/core';
+import { DescribeSObjectResult } from 'jsforce';
+// import { ConfigAggregator, Messages, Org, SfError, SfProject } from '@salesforce/core';
+import { Messages, SfProject } from '@salesforce/core';
+import sObjectNames from '../../../../utils/sObjectNames.js';
 
 Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.selector');
@@ -25,6 +24,12 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       summary: messages.getMessage('flags.target-org.summary'),
       description: messages.getMessage('flags.target-org.description'),
       char: 'o',
+      required: true,
+    }),
+    sobject: Flags.string({
+      summary: messages.getMessage('flags.sobject.summary'),
+      description: messages.getMessage('flags.sobject.description'),
+      char: 's',
       required: true,
     }),
   };
@@ -48,8 +53,23 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     // const conn = this.org.getConnection();
     // const org = await Org.create({ aliasOrUsername: opts['target-org'] });
 
+    this.debug('DEBUG looking for already installed packages');
+    await flags['target-org'].refreshAuth();
+    this.log(`FLAG "api-version": ${flags['api-version']}`);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const conn = flags['target-org'].getConnection(flags['api-version']);
+
     // const result: DescribeSObjectResult = await conn.describe(this.args.sObjectName);
-    // const sobj: sObject = new sObject(result);
+    const describeResult: DescribeSObjectResult = await conn.describeSObject(flags['sobject']);
+    this.log(`name: ${describeResult.name}`);
+    this.log(`label: ${describeResult.label}`);
+    this.log(`labelPlural: ${describeResult.labelPlural}`);
+    this.log(`keyPrefix: ${describeResult.keyPrefix}`);
+    this.log('THIS FAR');
+
+    const sobj: sObjectNames = new sObjectNames(describeResult, 'foobar');
+
+    this.log(sobj.diagnosticReport());
 
     // if (!project) {
     //   throw new SfdxError(messages.getMessage('errorNoSfdxProject'));

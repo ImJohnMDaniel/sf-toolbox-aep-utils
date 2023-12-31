@@ -14,6 +14,14 @@ The org to get data from
 
 Need to put together a flags.target-org.description
 
+# flags.sobject.summary
+
+The sobject to get data on
+
+# flags.sobject.description
+
+Need to put together a flags.sobject.description
+
 # examples
 
 - <%= config.bin %> <%= command.id %>
