@@ -3,9 +3,21 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { DescribeSObjectResult } from 'jsforce';
-// import { ConfigAggregator, Messages, Org, SfError, SfProject } from '@salesforce/core';
+// import { template, templateSettings } from 'dot';
+import pkg from 'dot';
 import { Messages, SfProject } from '@salesforce/core';
+import {
+  // apexMetadataSource,
+  selectorTemplates,
+} from '../../../../templates/index.js';
+
 import sObjectNames from '../../../../utils/sObjectNames.js';
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const { template, templateSettings } = pkg;
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+templateSettings.strip = false;
 
 Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.selector');
@@ -53,7 +65,6 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     // const conn = this.org.getConnection();
     // const org = await Org.create({ aliasOrUsername: opts['target-org'] });
 
-    this.debug('DEBUG looking for already installed packages');
     await flags['target-org'].refreshAuth();
     this.log(`FLAG "api-version": ${flags['api-version']}`);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -68,22 +79,38 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     this.log('THIS FAR');
 
     const sobj: sObjectNames = new sObjectNames(describeResult, 'foobar');
-
     this.log(sobj.diagnosticReport());
 
-    // if (!project) {
-    //   throw new SfdxError(messages.getMessage('errorNoSfdxProject'));
-    // }
+    // this.log('field.name,field.soapType,field.type,field.extraTypeInfo,field.externalId,field.idLookup,field.custom,field.filterable,field.groupable,field.nameField,field.permissionable,field.sortable,field.referenceTo,field.relationshipName,field.relationshipOrder');
+    // describeResult.fields.forEach((field) => {
+    //   // if (field.custom && field.soapType.includes(''))
+    //   // this.log(`field.name == ${field.name}`);
+    //   // this.log(`field.soapType == ${field.soapType}`);
+    //   // this.log(`field.type == ${field.type}`);
+    //   // this.log(`field.extraTypeInfo == ${field.extraTypeInfo}`);
+    //   // this.log(`field.externalId == ${field.externalId.toString()}`);
+    //   // this.log(`field.idLookup == ${field.idLookup.toString()}`);
+    //   // this.log(`field.custom == ${field.custom.toString()}`);
+    //   // this.log(`field.filterable == ${field.filterable.toString()}`);
+    //   // this.log(`field.groupable == ${field.groupable.toString()}`);
+    //   // this.log(`field.nameField == ${field.nameField.toString()}`);
+    //   // this.log(`field.permissionable == ${field.permissionable}`);
+    //   // this.log(`field.sortable == ${field.sortable.toString()}`);
+    //   // this.log(`field.referenceTo == ${field.referenceTo?.toString()}`);
+    //   // this.log(`field.relationshipName == ${field.relationshipName}`);
+    //   // this.log(`field.relationshipOrder == ${field.relationshipOrder}`);
+    //   // this.log('');
+    //   this.log(`${field.name},${field.soapType},${field.type},${field.extraTypeInfo},${field.externalId.toString()},${field.idLookup.toString()},${field.custom.toString()},${field.filterable.toString()},${field.groupable.toString()},${field.nameField.toString()},${field.permissionable},${field.sortable.toString()},${field.referenceTo?.toString()},${field.relationshipName},${field.relationshipOrder}`);
+    // });
 
-    // const conn = this.org.getConnection();
-    // const result: DescribeSObjectResult = await conn.describe(this.args.sObjectName);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
+    const selectorClassTemplate = template(selectorTemplates.selectorClass);
 
-    // const sobj: sObject = new sObject(result);
+    // // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    const implementationClassContent = selectorClassTemplate({ sobj });
 
-    this.log(
-      //   `hello ${ name } from / Users / john / workspace / _cli - related / sf - toolbox - aep - utils / src / commands / toolbox / aep / generate / selector.ts`
-      `basePath == ${basePath} `
-    );
+    this.log(`${implementationClassContent}`);
+
     return {
       // path: '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/src/commands/toolbox/aep/generate/selector.ts',
       path: `${basePath} `,

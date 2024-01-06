@@ -1,3 +1,4 @@
+// import { string } from '@oclif/core/lib/args.js';
 import { DescribeSObjectResult, Field } from 'jsforce';
 
 const filenameExtensionForClass: string = '.cls';
@@ -178,6 +179,31 @@ class sObjectNames {
 
   public getFields(): Field[] {
     return this.sobjectDescribeResult.fields;
+  }
+
+  // TODO: public getParentLookupFields(): string[]
+  //     This will be used by the selector template to create the "selectByField()" methods
+
+  public getFieldsForSObjectFieldList(): string[] {
+    const fieldList: string[] = [];
+
+    this.getFields().forEach((field, idx, array) => {
+      if (idx + 1 === array.length) {
+        fieldList.push(field.name);
+      } else {
+        fieldList.push(field.name + ',');
+      }
+      //     if (field.custom && field.soapType.includes(''))
+      //     field.name = field.product_desc.substring(0,10);
+    });
+
+    //   this.getFields().forEach( function(i, idx, array){
+    //     if (idx + 1 === array.length){
+    //         console.log("Last callback call at index " + idx + " with value " + i );
+    //     }
+    //  }
+
+    return fieldList;
   }
 
   public getApiName(): string {

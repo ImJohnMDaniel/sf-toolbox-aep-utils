@@ -47,6 +47,10 @@ oclif.manifest.json
 
 oclif.lock
 
+# Salesforce CLI specific
+.sfdx/
+.sf/
+
 # VSCode Related folders
 .history/
 

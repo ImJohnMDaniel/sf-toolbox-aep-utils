@@ -17,5 +17,5 @@ sf project deploy start --ignore-conflicts
 # testingStage
 # sfdx force:apex:execute -f scripts/configureForceDIBindingCache.apex
 # sfdx force:source:deploy --sourcepath sfdx-source/unpackaged-post-deployment
-# sfdx force:user:permset:assign -n FooBarAccess 
+sfdx force:user:permset:assign -n FooBarAccess 
 # sfdx sfdmu:run -s csvfile -u foobar -p data/Accounts
