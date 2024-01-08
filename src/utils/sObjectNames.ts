@@ -104,6 +104,21 @@ class sObjectNames {
     return last !== -1 ? `${str.slice(0, last)}${replacement}${str.slice(last + pattern.length)}` : str;
   }
 
+  private static fieldShouldBeIncluded(currentField: Field): boolean {
+    // get the default fields
+    // remove IsDeleted fields
+    // remove field.type == textarea
+    // remove field.filterable == false
+    if (
+      currentField.name.toLocaleLowerCase() === 'isdeleted' ||
+      currentField.type === 'textarea' ||
+      currentField.filterable === false
+    ) {
+      return false;
+    }
+
+    return true;
+  }
   public diagnosticReport(): string {
     return (
       'getApiName(): ' +
@@ -188,20 +203,14 @@ class sObjectNames {
     const fieldList: string[] = [];
 
     this.getFields().forEach((field, idx, array) => {
-      if (idx + 1 === array.length) {
-        fieldList.push(field.name);
-      } else {
-        fieldList.push(field.name + ',');
+      if (sObjectNames.fieldShouldBeIncluded(field)) {
+        if (idx + 1 === array.length) {
+          fieldList.push(field.name);
+        } else {
+          fieldList.push(field.name + ',');
+        }
       }
-      //     if (field.custom && field.soapType.includes(''))
-      //     field.name = field.product_desc.substring(0,10);
     });
-
-    //   this.getFields().forEach( function(i, idx, array){
-    //     if (idx + 1 === array.length){
-    //         console.log("Last callback call at index " + idx + " with value " + i );
-    //     }
-    //  }
 
     return fieldList;
   }

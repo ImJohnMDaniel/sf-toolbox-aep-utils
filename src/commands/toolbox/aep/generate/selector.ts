@@ -4,17 +4,18 @@ import { fileURLToPath } from 'node:url';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { DescribeSObjectResult } from 'jsforce';
 // import { template, templateSettings } from 'dot';
-import pkg from 'dot';
+import dotpkg from 'dot';
+// import { writeFile } from 'graceful-fs';
+import gracefulfspkg from 'graceful-fs';
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const { writeFile } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
-import {
-  // apexMetadataSource,
-  selectorTemplates,
-} from '../../../../templates/index.js';
+import { apexMetadataSource, selectorTemplates } from '../../../../templates/index.js';
 
 import sObjectNames from '../../../../utils/sObjectNames.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const { template, templateSettings } = pkg;
+const { template, templateSettings } = dotpkg;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 templateSettings.strip = false;
@@ -44,72 +45,116 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       char: 's',
       required: true,
     }),
+    'output-path': Flags.directory({
+      exists: true,
+      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
+      summary: 'The output path to deposit the files',
+      char: 'p',
+      required: false,
+    }),
   };
 
   public async run(): Promise<ToolboxAepGenerateSelectorResult> {
     const { flags } = await this.parse(ToolboxAepGenerateSelector);
 
-    // const name = flags.name ?? 'world'; // this is the default for the command flag "name"
-
-    // resolve the project
-    // const project: SfProject = await SfProject.resolve();
-    // const projectJson = await project.resolveProjectConfig();
-    // get the project's basePath
-    // const basePath: string = SfProject.resolveProjectPathSync();
     const basePath: string = await SfProject.resolveProjectPath();
 
-    this.log(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-      `flags == ${flags['target-org'].getUsername()}`
-    );
-    // const conn = this.org.getConnection();
-    // const org = await Org.create({ aliasOrUsername: opts['target-org'] });
+    // eslint-disable-next-line no-console, @typescript-eslint/explicit-function-return-type
+    // const logError = (err: Error) => err ? console.log(err) : null;
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    // const logError = (err: SfError) => this.error(err);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const logError = function (err: any): void {
+      // eslint-disable-next-line no-console
+      if (err) console.log(err);
+      // eslint-disable-next-line no-console
+      console.log('The file was saved!');
+    };
+
+    // this.log(
+    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    //   `flags == ${flags['target-org'].getUsername()}`
+    // );
 
     await flags['target-org'].refreshAuth();
-    this.log(`FLAG "api-version": ${flags['api-version']}`);
+    // this.log(`FLAG "api-version": ${flags['api-version']}`);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const conn = flags['target-org'].getConnection(flags['api-version']);
 
     // const result: DescribeSObjectResult = await conn.describe(this.args.sObjectName);
     const describeResult: DescribeSObjectResult = await conn.describeSObject(flags['sobject']);
-    this.log(`name: ${describeResult.name}`);
-    this.log(`label: ${describeResult.label}`);
-    this.log(`labelPlural: ${describeResult.labelPlural}`);
-    this.log(`keyPrefix: ${describeResult.keyPrefix}`);
-    this.log('THIS FAR');
+    // this.log(`name: ${describeResult.name}`);
+    // this.log(`label: ${describeResult.label}`);
+    // this.log(`labelPlural: ${describeResult.labelPlural}`);
+    // this.log(`keyPrefix: ${describeResult.keyPrefix}`);
+    // this.log('THIS FAR');
 
     const sobj: sObjectNames = new sObjectNames(describeResult, 'foobar');
-    this.log(sobj.diagnosticReport());
+    // this.log(sobj.diagnosticReport());
 
-    // this.log('field.name,field.soapType,field.type,field.extraTypeInfo,field.externalId,field.idLookup,field.custom,field.filterable,field.groupable,field.nameField,field.permissionable,field.sortable,field.referenceTo,field.relationshipName,field.relationshipOrder');
-    // describeResult.fields.forEach((field) => {
-    //   // if (field.custom && field.soapType.includes(''))
-    //   // this.log(`field.name == ${field.name}`);
-    //   // this.log(`field.soapType == ${field.soapType}`);
-    //   // this.log(`field.type == ${field.type}`);
-    //   // this.log(`field.extraTypeInfo == ${field.extraTypeInfo}`);
-    //   // this.log(`field.externalId == ${field.externalId.toString()}`);
-    //   // this.log(`field.idLookup == ${field.idLookup.toString()}`);
-    //   // this.log(`field.custom == ${field.custom.toString()}`);
-    //   // this.log(`field.filterable == ${field.filterable.toString()}`);
-    //   // this.log(`field.groupable == ${field.groupable.toString()}`);
-    //   // this.log(`field.nameField == ${field.nameField.toString()}`);
-    //   // this.log(`field.permissionable == ${field.permissionable}`);
-    //   // this.log(`field.sortable == ${field.sortable.toString()}`);
-    //   // this.log(`field.referenceTo == ${field.referenceTo?.toString()}`);
-    //   // this.log(`field.relationshipName == ${field.relationshipName}`);
-    //   // this.log(`field.relationshipOrder == ${field.relationshipOrder}`);
-    //   // this.log('');
-    //   this.log(`${field.name},${field.soapType},${field.type},${field.extraTypeInfo},${field.externalId.toString()},${field.idLookup.toString()},${field.custom.toString()},${field.filterable.toString()},${field.groupable.toString()},${field.nameField.toString()},${field.permissionable},${field.sortable.toString()},${field.referenceTo?.toString()},${field.relationshipName},${field.relationshipOrder}`);
-    // });
-
+    // Write the selector class to a file
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
     const selectorClassTemplate = template(selectorTemplates.selectorClass);
-
-    // // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const implementationClassContent = selectorClassTemplate({ sobj });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(
+        sobj.getSelectorImplementationClassName()
+      )}`,
+      implementationClassContent,
+      logError
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+        sobj.getSelectorImplementationClassName()
+      )}`,
+      apexMetadataSource,
+      logError
+    );
+    // this.log(`${implementationClassContent}`);
 
-    this.log(`${implementationClassContent}`);
+    // Write the selector interface to a file
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
+    const selectorInterfaceTemplate = template(selectorTemplates.selectorInterface);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    const interfaceClassContent = selectorInterfaceTemplate({ sobj });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getSelectorInterfaceClassName())}`,
+      interfaceClassContent,
+      logError
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+        sobj.getSelectorInterfaceClassName()
+      )}`,
+      apexMetadataSource,
+      logError
+    );
+
+    // Write the selector unit test to a file
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
+    const selectorUnitTestTemplate = template(selectorTemplates.selectorUnitTest);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    const unitTestClassContent = selectorUnitTestTemplate({ sobj });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getSelectorUnitTestClassName())}`,
+      unitTestClassContent,
+      logError
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+        sobj.getSelectorUnitTestClassName()
+      )}`,
+      apexMetadataSource,
+      logError
+    );
 
     return {
       // path: '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/src/commands/toolbox/aep/generate/selector.ts',

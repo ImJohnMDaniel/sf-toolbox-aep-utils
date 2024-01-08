@@ -22,17 +22,17 @@ const selectorClass: string = `public inherited sharing class {{=it.sobj.getSele
     }
 
     @TestVisible
-	private List<Schema.SObjectField> getAdditionalSObjectFieldList()
-	{
-		return new List<Schema.SObjectField> {
-			
-		};
-	}
+    private List<Schema.SObjectField> getAdditionalSObjectFieldList()
+    {
+        return new List<Schema.SObjectField> {
+            
+        };
+    }
 
-	public List<{{=it.sobj.getApiName()}}> selectById(Set<Id> idSet)
-	{
-		return (List<{{=it.sobj.getApiName()}}>) selectSObjectsById( idSet == null ? new Set<Id>() : idSet );
-	}
+    public List<{{=it.sobj.getApiName()}}> selectById(Set<Id> idSet)
+    {
+        return (List<{{=it.sobj.getApiName()}}>) selectSObjectsById( idSet == null ? new Set<Id>() : idSet );
+    }
 
     // TODO: Need to add the selectByParent methods
 }
