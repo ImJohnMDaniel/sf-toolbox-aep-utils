@@ -52,6 +52,17 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       char: 'p',
       required: false,
     }),
+    prefix: Flags.string({
+      exists: true,
+      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
+      summary: 'The prefix to create the files with.',
+      required: false,
+    }),
+    'api-version': Flags.orgApiVersion({
+      char: 'a',
+      summary: messages.getMessage('flags.api-version.summary'),
+      description: messages.getMessage('flags.api-version.description'),
+    }),
   };
 
   public async run(): Promise<ToolboxAepGenerateSelectorResult> {
@@ -90,8 +101,13 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     // this.log(`keyPrefix: ${describeResult.keyPrefix}`);
     // this.log('THIS FAR');
 
-    const sobj: sObjectNames = new sObjectNames(describeResult, 'foobar');
+    const sobj: sObjectNames = new sObjectNames(describeResult, flags['prefix']);
     // this.log(sobj.diagnosticReport());
+
+    // Setup Apex class metadata file template
+    const apiVersion = conn.getApiVersion();
+    const apexMetadataTemplate = template(apexMetadataSource);
+    const apexMetadataContent = apexMetadataTemplate({ apiVersion });
 
     // Write the selector class to a file
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
@@ -111,7 +127,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorImplementationClassName()
       )}`,
-      apexMetadataSource,
+      apexMetadataContent,
       logError
     );
     // this.log(`${implementationClassContent}`);
@@ -132,7 +148,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorInterfaceClassName()
       )}`,
-      apexMetadataSource,
+      apexMetadataContent,
       logError
     );
 
@@ -152,7 +168,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorUnitTestClassName()
       )}`,
-      apexMetadataSource,
+      apexMetadataContent,
       logError
     );
 
