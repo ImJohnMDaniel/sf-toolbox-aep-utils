@@ -1,7 +1,7 @@
 const selectorInterface: string = `public interface {{=it.sobj.getSelectorInterfaceClassName()}}
-	extends IApplicationSObjectSelector
+    extends IApplicationSObjectSelector
 {
-	List<{{=it.sobj.getApiName()}}> selectById(Set<Id> idSet);
+    List<{{=it.sobj.getApiName()}}> selectById(Set<Id> idSet);
 }
 `;
 
