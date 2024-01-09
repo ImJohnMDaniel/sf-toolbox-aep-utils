@@ -57,4 +57,4 @@ oclif.lock
 # Other
 temp/
 
-# /referenceproject/generated-files
+/referenceproject/generated-files
