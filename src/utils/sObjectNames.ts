@@ -36,6 +36,8 @@ class sObjectNames {
 
   // eslint-disable-next-line complexity
   private static getPluralFormOfWord(word: string): string {
+    // eslint-disable-next-line no-console
+    console.log(`word: ${word}`);
     if (word.endsWith('bus')) {
       word = word + 'ses';
     } else if (word.endsWith('fez')) {
@@ -100,6 +102,8 @@ class sObjectNames {
 
   private static replaceLastOccurance(str: string, pattern: string, replacement: string): string {
     const last = str.lastIndexOf(pattern);
+    // eslint-disable-next-line no-console
+    console.log(`replaceLastOccurance :\nstr: ${str}\npattern: ${pattern}\nreplacement: ${replacement}`);
 
     return last !== -1 ? `${str.slice(0, last)}${replacement}${str.slice(last + pattern.length)}` : str;
   }
@@ -119,6 +123,7 @@ class sObjectNames {
 
     return true;
   }
+
   public diagnosticReport(): string {
     return (
       'getApiName(): ' +
@@ -231,11 +236,14 @@ class sObjectNames {
     return this.getSelectorImplementationClassName() + 'Test';
   }
 
+  public getApplicationFactorySObjectLabel(): string {
+    return this.getApiName().replace('__c', '_c');
+  }
   public getMetadataFilenameForAT4DXSelectorBinding(): string {
     return (
       'ApplicationFactory_SelectorBinding__mdt.' +
-      sObjectNames.cleanUpClassName(this.getApiName()) +
-      'SObjectBinding.md' +
+      this.getApplicationFactorySObjectLabel() +
+      '.md' +
       filenameExtensionForClassMetadata
     );
   }
@@ -255,22 +263,56 @@ class sObjectNames {
   public getMetadataFilenameForAT4DXDomainBinding(): string {
     return (
       'ApplicationFactory_DomainBinding__mdt.' +
-      sObjectNames.cleanUpClassName(this.getApiName()) +
-      'SObjectBinding.md' +
+      this.getApplicationFactorySObjectLabel() +
+      '.md' +
       filenameExtensionForClassMetadata
     );
   }
 
+  public getMetadataFilenameForAT4DXUOWBinding(): string {
+    return (
+      'ApplicationFactory_UnitOfWorkBinding__mdt.' +
+      this.getApplicationFactorySObjectLabel() +
+      '.md' +
+      filenameExtensionForClassMetadata
+    );
+  }
+
+  public getBindingSObjectAlternateValue(): string {
+    if (this.sobjectDescribeResult.custom) {
+      return `<value xsi:type="xsd:string">${this.getApiName()}</value>`;
+    }
+    return '<value xsi:nil="true"/>';
+  }
+
+  public getBindingSObjectValue(): string {
+    if (!this.sobjectDescribeResult.custom) {
+      return `<value xsi:type="xsd:string">${this.getApiName()}</value>`;
+    }
+    return '<value xsi:nil="true"/>';
+  }
+
   private initializeBaseName(): void {
     let workingBaseName = this.getApiName(); // Property__c
-
+    // eslint-disable-next-line no-console
+    console.log(`workingBaseName1: ${workingBaseName}`);
+    // eslint-disable-next-line no-console
+    console.log(`this.classPrefix: ${this.classPrefix}`);
     // remove the prefix, if present
-    workingBaseName = workingBaseName.replace(this.classPrefix + '_', '');
+    if (this.classPrefix) {
+      workingBaseName = workingBaseName.replace(this.classPrefix, '');
+    }
 
+    // eslint-disable-next-line no-console
+    console.log(`workingBaseName2: ${workingBaseName}`);
     workingBaseName = sObjectNames.cleanUpClassName(workingBaseName); // Property
 
+    // eslint-disable-next-line no-console
+    console.log(`workingBaseName3: ${workingBaseName}`);
     workingBaseName = sObjectNames.getPluralFormOfWord(workingBaseName); // Properties
 
+    // eslint-disable-next-line no-console
+    console.log(`workingBaseName4: ${workingBaseName}`);
     this.baseClassName = workingBaseName;
 
     return;

@@ -172,6 +172,16 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       logError
     );
 
+    // Write the AT4DX ApplicationFactory_SelectorBinding file
+    const selectorBindingTemplate = template(selectorTemplates.selectorBinding);
+    const selectorBindingContent = selectorBindingTemplate({ sobj });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
+      selectorBindingContent,
+      logError
+    );
+
     return {
       // path: '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/src/commands/toolbox/aep/generate/selector.ts',
       path: `${basePath} `,
