@@ -18,6 +18,10 @@
           "package": "reference-at4dx@1.0.0-2"
         }
       ]
+    },
+    {
+      "path": "sfdx-source/untracked",
+      "default": false
     }
   ],
   "namespace": "",

@@ -58,3 +58,5 @@ oclif.lock
 temp/
 
 /referenceproject/generated-files
+!/referenceproject/sfdx-source/untracked/README.md
+/referenceproject/sfdx-source/untracked
