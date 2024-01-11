@@ -31,7 +31,7 @@ const selectorClass: string = `public inherited sharing class {{=it.sobj.getSele
 
     public List<{{=it.sobj.getApiName()}}> selectById(Set<Id> idSet)
     {
-        return (List<{{=it.sobj.getApiName()}}>) selectSObjectsById( idSet == null ? new Set<Id>() : idSet );
+        return (List<{{=it.sobj.getApiName()}}>) newQueryFactory().setCondition('id in :idSet').toSOQL();
     }
 
     // TODO: Need to add the selectByParent methods
