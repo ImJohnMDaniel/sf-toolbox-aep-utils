@@ -1,9 +1,10 @@
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+// import { dirname } from 'node:path';
+// import { fileURLToPath } from 'node:url';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 
-Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
+// Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate');
 
 export type ToolboxAepGenerateResult = {

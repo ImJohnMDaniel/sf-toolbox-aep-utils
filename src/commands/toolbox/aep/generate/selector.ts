@@ -1,6 +1,6 @@
 /* eslint-disable sf-plugin/no-missing-messages */
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+// import { dirname } from 'node:path';
+// import { fileURLToPath } from 'node:url';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { DescribeSObjectResult } from 'jsforce';
 // import { template, templateSettings } from 'dot';
@@ -20,7 +20,8 @@ const { template, templateSettings } = dotpkg;
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 templateSettings.strip = false;
 
-Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
+// Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.selector');
 
 export type ToolboxAepGenerateSelectorResult = {
