@@ -1,0 +1,22 @@
+sf toolbox aep generate selector --output-path generated-files --sobject Property__c --prefix foobar
+
+sf toolbox aep generate domain --output-path generated-files --sobject Property__c --prefix foobar
+
+sf toolbox aep generate selector --output-path generated-files --sobject Account
+
+sf toolbox aep generate domain --output-path generated-files --sobject Account
+
+sf toolbox aep generate selector --output-path generated-files --sobject Property__c --prefix foobar
+
+sf toolbox aep generate domain --output-path generated-files --sobject Property__c --prefix foobar
+
+sf toolbox aep generate selector --output-path generated-files --sobject Broker__c --prefix foobar
+
+sf toolbox aep generate domain --output-path generated-files --sobject Broker__c --prefix foobar
+
+sf toolbox aep generate selector --output-path generated-files --sobject FOOBAR_Brokerage__c --prefix foobar
+
+sf toolbox aep generate domain --output-path generated-files --sobject FOOBAR_Brokerage__c --prefix foobar
+
+
+
