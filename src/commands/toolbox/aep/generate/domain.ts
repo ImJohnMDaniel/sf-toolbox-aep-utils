@@ -10,7 +10,7 @@ import gracefulfspkg from 'graceful-fs';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const { writeFile } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
-import { apexMetadataSource, domainTemplates } from '../../../../templates/index.js';
+import { apexMetadataSource, domainTemplates, triggerMetadataSource } from '../../../../templates/index.js';
 
 import sObjectNames from '../../../../utils/sObjectNames.js';
 
@@ -131,7 +131,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       apexMetadataContent,
       logError
     );
-    // this.log(`${implementationClassContent}`);
 
     // Write the domain interface to a file
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
@@ -170,6 +169,29 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
         sobj.getDomainUnitTestClassName()
       )}`,
       apexMetadataContent,
+      logError
+    );
+
+    // Write the domain trigger to a file
+    const triggerMetadataTemplate = template(triggerMetadataSource);
+    const triggerMetadataContent = triggerMetadataTemplate({ apiVersion });
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
+    const domainTriggerTemplate = template(domainTemplates.domainTrigger);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    const domainTriggerContent = domainTriggerTemplate({ sobj });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForTrigger(sobj.getDomainUnitTestClassName())}`,
+      domainTriggerContent,
+      logError
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    writeFile(
+      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForTrigger(
+        sobj.getDomainUnitTestClassName()
+      )}`,
+      triggerMetadataContent,
       logError
     );
 

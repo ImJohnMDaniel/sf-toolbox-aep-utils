@@ -2,7 +2,8 @@
 import { DescribeSObjectResult, Field } from 'jsforce';
 
 const filenameExtensionForClass: string = '.cls';
-const filenameExtensionForClassMetadata: string = '-meta.xml';
+const filenameExtensionForTrigger: string = '.trigger';
+const filenameExtensionForMetadata: string = '-meta.xml';
 
 class sObjectNames {
   private sobjectDescribeResult: DescribeSObjectResult;
@@ -25,7 +26,15 @@ class sObjectNames {
   }
 
   public static getMetadataFilenameForClass(className: string): string {
-    return sObjectNames.getFilenameForClass(className) + filenameExtensionForClassMetadata;
+    return sObjectNames.getFilenameForClass(className) + filenameExtensionForMetadata;
+  }
+
+  public static getFilenameForTrigger(triggerName: string): string {
+    return triggerName + filenameExtensionForTrigger;
+  }
+
+  public static getMetadataFilenameForTrigger(triggerName: string): string {
+    return sObjectNames.getFilenameForTrigger(triggerName) + filenameExtensionForMetadata;
   }
 
   private static cleanUpClassName(className: string): string {
@@ -244,7 +253,7 @@ class sObjectNames {
       'ApplicationFactory_SelectorBinding__mdt.' +
       this.getApplicationFactorySObjectLabel() +
       '.md' +
-      filenameExtensionForClassMetadata
+      filenameExtensionForMetadata
     );
   }
 
@@ -265,7 +274,7 @@ class sObjectNames {
       'ApplicationFactory_DomainBinding__mdt.' +
       this.getApplicationFactorySObjectLabel() +
       '.md' +
-      filenameExtensionForClassMetadata
+      filenameExtensionForMetadata
     );
   }
 
@@ -274,7 +283,7 @@ class sObjectNames {
       'ApplicationFactory_UnitOfWorkBinding__mdt.' +
       this.getApplicationFactorySObjectLabel() +
       '.md' +
-      filenameExtensionForClassMetadata
+      filenameExtensionForMetadata
     );
   }
 
