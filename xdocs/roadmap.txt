@@ -1,0 +1,14 @@
+roadmap
+- selectById() method
+    - selectSObjectsById base function doesn't honor inherited sharing.  the workaround was to simply custom where clause for method
+- add boolean flags to the "toolbox aep generate" command to either domain, selector, and/or uow
+- generate selector injection method class 
+- generate the files into the default hierarchy folder under the generated folder location
+- generate selector selectByParent methods and selectByExternal methods
+- generate uow binding
+- generate service class related - SVC, ISVC, SVCImpl, SVCException, SVCTest, and ApplicationFactory_ServiceBinding__mdt.SVC.md-meta.xml
+- generate FFLIBApexCommon flavors -- right now it is AT4DX flavor
+- config setting to specify your own templates 
+- vscode extension
+- 
+
