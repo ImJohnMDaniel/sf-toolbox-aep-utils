@@ -10,7 +10,7 @@ import gracefulfspkg from 'graceful-fs';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const { writeFile } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
-import { apexMetadataSource, selectorTemplates } from '../../../../templates/index.js';
+import { apexMetadataSource, domainTemplates } from '../../../../templates/index.js';
 
 import sObjectNames from '../../../../utils/sObjectNames.js';
 
@@ -21,13 +21,13 @@ const { template, templateSettings } = dotpkg;
 templateSettings.strip = false;
 
 Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
-const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.selector');
+const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.domain');
 
-export type ToolboxAepGenerateSelectorResult = {
+export type ToolboxAepGenerateDomainResult = {
   path: string;
 };
 
-export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGenerateSelectorResult> {
+export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenerateDomainResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -65,8 +65,8 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     }),
   };
 
-  public async run(): Promise<ToolboxAepGenerateSelectorResult> {
-    const { flags } = await this.parse(ToolboxAepGenerateSelector);
+  public async run(): Promise<ToolboxAepGenerateDomainResult> {
+    const { flags } = await this.parse(ToolboxAepGenerateDomain);
 
     const basePath: string = await SfProject.resolveProjectPath();
 
@@ -109,11 +109,11 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const apexMetadataTemplate = template(apexMetadataSource);
     const apexMetadataContent = apexMetadataTemplate({ apiVersion });
 
-    // Write the selector class to a file
+    // Write the domain class to a file
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
-    const selectorClassTemplate = template(selectorTemplates.selectorClass);
+    const domainClassTemplate = template(domainTemplates.domainClass);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    const implementationClassContent = selectorClassTemplate({ sobj });
+    const implementationClassContent = domainClassTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(
@@ -132,31 +132,31 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     );
     // this.log(`${implementationClassContent}`);
 
-    // Write the selector interface to a file
+    // Write the domain interface to a file
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
-    const selectorInterfaceTemplate = template(selectorTemplates.selectorInterface);
+    const domainInterfaceTemplate = template(domainTemplates.domainInterface);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    const interfaceClassContent = selectorInterfaceTemplate({ sobj });
+    const interfaceClassContent = domainInterfaceTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getSelectorInterfaceClassName())}`,
+      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getDomainInterfaceClassName())}`,
       interfaceClassContent,
       logError
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
-        sobj.getSelectorInterfaceClassName()
+        sobj.getDomainInterfaceClassName()
       )}`,
       apexMetadataContent,
       logError
     );
 
-    // Write the selector unit test to a file
+    // Write the domain unit test to a file
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
-    const selectorUnitTestTemplate = template(selectorTemplates.selectorUnitTest);
+    const domainUnitTestTemplate = template(domainTemplates.domainUnitTest);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    const unitTestClassContent = selectorUnitTestTemplate({ sobj });
+    const unitTestClassContent = domainUnitTestTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getDomainUnitTestClassName())}`,
@@ -172,13 +172,13 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       logError
     );
 
-    // Write the AT4DX ApplicationFactory_SelectorBinding file
-    const selectorBindingTemplate = template(selectorTemplates.selectorBinding);
-    const selectorBindingContent = selectorBindingTemplate({ sobj });
+    // Write the AT4DX ApplicationFactory_DomainBinding file
+    const domainBindingTemplate = template(domainTemplates.domainBinding);
+    const domainBindingContent = domainBindingTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
-      selectorBindingContent,
+      `${basePath}/${flags['output-path']}/${sobj.getMetadataFilenameForAT4DXDomainBinding()}`,
+      domainBindingContent,
       logError
     );
 
