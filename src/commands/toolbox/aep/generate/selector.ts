@@ -8,7 +8,7 @@ import dotpkg from 'dot';
 // import { writeFile } from 'graceful-fs';
 import gracefulfspkg from 'graceful-fs';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const { writeFile } = gracefulfspkg;
+const { writeFile, mkdirSync } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
 import { apexMetadataSource, selectorTemplates } from '../../../../templates/index.js';
 
@@ -105,6 +105,17 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const sobj: sObjectNames = new sObjectNames(describeResult, flags['prefix']);
     // this.log(sobj.diagnosticReport());
 
+    // ensure that all output path folders are created
+    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainSelectorClass()}`, {
+      recursive: true,
+    });
+    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForTestSelectorClass()}`, {
+      recursive: true,
+    });
+    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainSelectorBinding()}`, {
+      recursive: true,
+    });
+
     // Setup Apex class metadata file template
     const apiVersion = conn.getApiVersion();
     const apexMetadataTemplate = template(apexMetadataSource);
@@ -117,7 +128,9 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const implementationClassContent = selectorClassTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getFilenameForClass(
         sobj.getSelectorImplementationClassName()
       )}`,
       implementationClassContent,
@@ -125,7 +138,9 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorImplementationClassName()
       )}`,
       apexMetadataContent,
@@ -140,13 +155,19 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const interfaceClassContent = selectorInterfaceTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getSelectorInterfaceClassName())}`,
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getFilenameForClass(
+        sobj.getSelectorInterfaceClassName()
+      )}`,
       interfaceClassContent,
       logError
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorInterfaceClassName()
       )}`,
       apexMetadataContent,
@@ -160,13 +181,19 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const unitTestClassContent = selectorUnitTestTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getSelectorUnitTestClassName())}`,
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForTestSelectorClass()}/${sObjectNames.getFilenameForClass(
+        sobj.getSelectorUnitTestClassName()
+      )}`,
       unitTestClassContent,
       logError
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForTestSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorUnitTestClassName()
       )}`,
       apexMetadataContent,
@@ -178,7 +205,9 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const selectorBindingContent = selectorBindingTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainSelectorBinding()}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
       selectorBindingContent,
       logError
     );

@@ -21,6 +21,50 @@ class sObjectNames {
     this.initializeBaseName();
   }
 
+  public static getFilepathForMainDomainClass(): string {
+    return 'main/classes/domains';
+  }
+
+  public static getFilepathForTestDomainClass(): string {
+    return 'test/classes/domains';
+  }
+
+  public static getFilepathForMainDomainBinding(): string {
+    return 'main/schema/custommetadata/applicationFactoryBindings/domainBindings';
+  }
+
+  public static getFilepathForMainTrigger(): string {
+    return 'main/schema/triggers';
+  }
+
+  public static getFilepathForMainSelectorClass(): string {
+    return 'main/classes/selectors';
+  }
+
+  public static getFilepathForTestSelectorClass(): string {
+    return 'test/classes/selectors';
+  }
+
+  public static getFilepathForMainSelectorBinding(): string {
+    return 'main/schema/custommetadata/applicationFactoryBindings/selectorBindings';
+  }
+
+  public static getFilepathForMainServiceClass(): string {
+    return 'main/classes/services';
+  }
+
+  public static getFilepathForTestServiceClass(): string {
+    return 'test/classes/services';
+  }
+
+  public static getFilepathForMainServiceBinding(): string {
+    return 'main/schema/custommetadata/applicationFactoryBindings/serviceBindings';
+  }
+
+  public static getFilepathForMainUOWBinding(): string {
+    return 'main/schema/custommetadata/applicationFactoryBindings/unitOfWorkBindings';
+  }
+
   public static getFilenameForClass(className: string): string {
     return className + filenameExtensionForClass;
   }

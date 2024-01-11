@@ -8,7 +8,7 @@ import dotpkg from 'dot';
 // import { writeFile } from 'graceful-fs';
 import gracefulfspkg from 'graceful-fs';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const { writeFile } = gracefulfspkg;
+const { writeFile, mkdirSync } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
 import { apexMetadataSource, domainTemplates, triggerMetadataSource } from '../../../../templates/index.js';
 
@@ -105,6 +105,18 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const sobj: sObjectNames = new sObjectNames(describeResult, flags['prefix']);
     // this.log(sobj.diagnosticReport());
 
+    // ensure that all output path folders are created
+    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainDomainClass()}`, {
+      recursive: true,
+    });
+    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForTestDomainClass()}`, {
+      recursive: true,
+    });
+    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainDomainBinding()}`, {
+      recursive: true,
+    });
+    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainTrigger()}`, { recursive: true });
+
     // Setup Apex class metadata file template
     const apiVersion = conn.getApiVersion();
     const apexMetadataTemplate = template(apexMetadataSource);
@@ -117,7 +129,9 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const implementationClassContent = domainClassTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getFilenameForClass(
         sobj.getDomainImplementationClassName()
       )}`,
       implementationClassContent,
@@ -125,7 +139,9 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getDomainImplementationClassName()
       )}`,
       apexMetadataContent,
@@ -139,13 +155,19 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const interfaceClassContent = domainInterfaceTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getDomainInterfaceClassName())}`,
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getFilenameForClass(
+        sobj.getDomainInterfaceClassName()
+      )}`,
       interfaceClassContent,
       logError
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getDomainInterfaceClassName()
       )}`,
       apexMetadataContent,
@@ -159,13 +181,19 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const unitTestClassContent = domainUnitTestTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getDomainUnitTestClassName())}`,
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForTestDomainClass()}/${sObjectNames.getFilenameForClass(
+        sobj.getDomainUnitTestClassName()
+      )}`,
       unitTestClassContent,
       logError
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForTestDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getDomainUnitTestClassName()
       )}`,
       apexMetadataContent,
@@ -182,7 +210,9 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const domainTriggerContent = domainTriggerTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForTrigger(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainTrigger()}/${sObjectNames.getFilenameForTrigger(
         sobj.getDomainImplementationClassName()
       )}`,
       domainTriggerContent,
@@ -190,7 +220,9 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForTrigger(
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainTrigger()}/${sObjectNames.getMetadataFilenameForTrigger(
         sobj.getDomainImplementationClassName()
       )}`,
       triggerMetadataContent,
@@ -202,7 +234,9 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const domainBindingContent = domainBindingTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sobj.getMetadataFilenameForAT4DXDomainBinding()}`,
+      `${basePath}/${
+        flags['output-path']
+      }/${sObjectNames.getFilepathForMainDomainBinding()}/${sobj.getMetadataFilenameForAT4DXDomainBinding()}`,
       domainBindingContent,
       logError
     );
