@@ -182,14 +182,16 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const domainTriggerContent = domainTriggerTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForTrigger(sobj.getDomainUnitTestClassName())}`,
+      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForTrigger(
+        sobj.getDomainImplementationClassName()
+      )}`,
       domainTriggerContent,
       logError
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForTrigger(
-        sobj.getDomainUnitTestClassName()
+        sobj.getDomainImplementationClassName()
       )}`,
       triggerMetadataContent,
       logError

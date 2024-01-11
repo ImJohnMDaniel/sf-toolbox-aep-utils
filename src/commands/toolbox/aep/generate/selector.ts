@@ -118,7 +118,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(
-        sobj.getDomainImplementationClassName()
+        sobj.getSelectorImplementationClassName()
       )}`,
       implementationClassContent,
       logError
@@ -126,7 +126,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
-        sobj.getDomainImplementationClassName()
+        sobj.getSelectorImplementationClassName()
       )}`,
       apexMetadataContent,
       logError
@@ -160,14 +160,14 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const unitTestClassContent = selectorUnitTestTemplate({ sobj });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
-      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getDomainUnitTestClassName())}`,
+      `${basePath}/${flags['output-path']}/${sObjectNames.getFilenameForClass(sobj.getSelectorUnitTestClassName())}`,
       unitTestClassContent,
       logError
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${flags['output-path']}/${sObjectNames.getMetadataFilenameForClass(
-        sobj.getDomainUnitTestClassName()
+        sobj.getSelectorUnitTestClassName()
       )}`,
       apexMetadataContent,
       logError
