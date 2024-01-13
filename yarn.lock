@@ -1603,10 +1603,10 @@
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@salesforce/cli-plugins-testkit@^5.1.4":
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-5.1.4.tgz#6afcfe9573fb41dae0202bef6c5353925f9707e3"
-  integrity sha512-BvN36/Yx5hoDU1cUsWwSb1DsY29aJU7t7Q6/1dPIdUv8t0wLsaUTxR+7uYtA2sQAMgCD2UewCUiUOWnutA25Pw==
+"@salesforce/cli-plugins-testkit@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-5.1.5.tgz#e3b95b8e0ea70a59b77faab6041bf4ded508affe"
+  integrity sha512-U2dMk+yyM07BqFOXG4O54d1aUul4NsUdEXEWggt2xl2wV/cOoXSQAROgjdTeIKs8ZhldZsXw7A/sT8KnqvJNjA==
   dependencies:
     "@salesforce/core" "^6.4.4"
     "@salesforce/kit" "^3.0.15"
