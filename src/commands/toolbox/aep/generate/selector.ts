@@ -129,7 +129,6 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       apexMetadataContent,
       logError
     );
-    // this.log(`${implementationClassContent}`);
 
     // Write the selector interface to a file
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars

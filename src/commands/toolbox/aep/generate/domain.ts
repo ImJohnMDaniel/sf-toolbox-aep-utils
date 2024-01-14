@@ -71,11 +71,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
 
     const basePath: string = await SfProject.resolveProjectPath();
 
-    // eslint-disable-next-line no-console, @typescript-eslint/explicit-function-return-type
-    // const logError = (err: Error) => err ? console.log(err) : null;
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-    // const logError = (err: SfError) => this.error(err);
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const logError = function (err: any): void {
       // eslint-disable-next-line no-console
@@ -84,26 +79,14 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       console.log('The file was saved!');
     };
 
-    // this.log(
-    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    //   `flags == ${flags['target-org'].getUsername()}`
-    // );
-
     await flags['target-org'].refreshAuth();
-    // this.log(`FLAG "api-version": ${flags['api-version']}`);
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const conn = flags['target-org'].getConnection(flags['api-version']);
 
-    // const result: DescribeSObjectResult = await conn.describe(this.args.sObjectName);
     const describeResult: DescribeSObjectResult = await conn.describeSObject(flags['sobject']);
-    // this.log(`name: ${describeResult.name}`);
-    // this.log(`label: ${describeResult.label}`);
-    // this.log(`labelPlural: ${describeResult.labelPlural}`);
-    // this.log(`keyPrefix: ${describeResult.keyPrefix}`);
-    // this.log('THIS FAR');
 
     const sobj: sObjectNames = new sObjectNames(describeResult, flags['prefix']);
-    // this.log(sobj.diagnosticReport());
 
     // ensure that all output path folders are created
     mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainDomainClass()}`, {
