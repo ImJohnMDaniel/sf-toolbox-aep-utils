@@ -22,5 +22,7 @@ sf toolbox aep generate selector --output-path generated-files --sobject FOOBAR_
 
 sf toolbox aep generate unitofwork --output-path generated-files --sobject FOOBAR_Brokerage__c --prefix foobar
 
+sf toolbox aep generate service --output-path generated-files --prefix foobar --service-basename LimitMonitors
+
 
 

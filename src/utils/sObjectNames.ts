@@ -50,18 +50,6 @@ class sObjectNames {
     return 'main/schema/custommetadata/applicationFactoryBindings/selectorBindings';
   }
 
-  public static getFilepathForMainServiceClass(): string {
-    return 'main/classes/services';
-  }
-
-  public static getFilepathForTestServiceClass(): string {
-    return 'test/classes/services';
-  }
-
-  public static getFilepathForMainServiceBinding(): string {
-    return 'main/schema/custommetadata/applicationFactoryBindings/serviceBindings';
-  }
-
   public static getFilepathForMainUnitOfWorkBinding(): string {
     return 'main/schema/custommetadata/applicationFactoryBindings/unitOfWorkBindings';
   }
