@@ -54,7 +54,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       required: false,
     }),
     prefix: Flags.string({
-      exists: true,
       // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
       summary: 'The prefix to create the files with.',
       required: false,
