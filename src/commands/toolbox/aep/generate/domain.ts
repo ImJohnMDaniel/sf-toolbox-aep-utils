@@ -80,7 +80,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
 
     await flags['target-org'].refreshAuth();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const conn = flags['target-org'].getConnection(flags['api-version']);
 
     const describeResult: DescribeSObjectResult = await conn.describeSObject(flags['sobject']);
@@ -105,11 +104,8 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const apexMetadataContent = apexMetadataTemplate({ apiVersion });
 
     // Write the domain class to a file
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
     const domainClassTemplate = template(domainTemplates.domainClass);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const implementationClassContent = domainClassTemplate({ sobj });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -119,7 +115,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       implementationClassContent,
       logError
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -131,11 +126,8 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     );
 
     // Write the domain interface to a file
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
     const domainInterfaceTemplate = template(domainTemplates.domainInterface);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const interfaceClassContent = domainInterfaceTemplate({ sobj });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -145,7 +137,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       interfaceClassContent,
       logError
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -157,11 +148,8 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     );
 
     // Write the domain unit test to a file
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
     const domainUnitTestTemplate = template(domainTemplates.domainUnitTest);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const unitTestClassContent = domainUnitTestTemplate({ sobj });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -171,7 +159,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       unitTestClassContent,
       logError
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -183,14 +170,8 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     );
 
     // Write the domain trigger to a file
-    const triggerMetadataTemplate = template(triggerMetadataSource);
-    const triggerMetadataContent = triggerMetadataTemplate({ apiVersion });
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars
     const domainTriggerTemplate = template(domainTemplates.domainTrigger);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const domainTriggerContent = domainTriggerTemplate({ sobj });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -200,7 +181,8 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       domainTriggerContent,
       logError
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const triggerMetadataTemplate = template(triggerMetadataSource);
+    const triggerMetadataContent = triggerMetadataTemplate({ apiVersion });
     writeFile(
       `${basePath}/${
         flags['output-path']
@@ -214,7 +196,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     // Write the AT4DX ApplicationFactory_DomainBinding file
     const domainBindingTemplate = template(domainTemplates.domainBinding);
     const domainBindingContent = domainBindingTemplate({ sobj });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']

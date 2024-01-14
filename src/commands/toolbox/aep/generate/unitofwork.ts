@@ -1,26 +1,17 @@
-/* eslint-disable sf-plugin/no-missing-messages */
-// import { dirname } from 'node:path';
-// import { fileURLToPath } from 'node:url';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { DescribeSObjectResult } from 'jsforce';
-// import { template, templateSettings } from 'dot';
 import dotpkg from 'dot';
-// import { writeFile } from 'graceful-fs';
 import gracefulfspkg from 'graceful-fs';
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const { writeFile, mkdirSync } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
 import { unitOfWorkTemplates } from '../../../../templates/index.js';
 
 import sObjectNames from '../../../../utils/sObjectNames.js';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const { template, templateSettings } = dotpkg;
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 templateSettings.strip = false;
 
-// Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.unitofwork');
 
@@ -64,6 +55,11 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
       // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
       summary: 'The Unit Of Work Binding Sequence',
     }),
+    'api-version': Flags.orgApiVersion({
+      char: 'a',
+      summary: messages.getMessage('flags.api-version.summary'),
+      description: messages.getMessage('flags.api-version.description'),
+    }),
   };
 
   public async run(): Promise<ToolboxAepGenerateUnitOfWorkResult> {
@@ -81,7 +77,6 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
 
     await flags['target-org'].refreshAuth();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const conn = flags['target-org'].getConnection(flags['api-version']);
 
     const describeResult: DescribeSObjectResult = await conn.describeSObject(flags['sobject']);
@@ -100,7 +95,6 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
     // Write the AT4DX ApplicationFactory_UnitOfWorkBinding file
     const unitOfWorkBindingTemplate = template(unitOfWorkTemplates.unitOfWorkBinding);
     const unitOfWorkBindingContent = unitOfWorkBindingTemplate({ sobj });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     writeFile(
       `${basePath}/${
         flags['output-path']
