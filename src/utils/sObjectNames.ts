@@ -9,6 +9,7 @@ class sObjectNames {
   private sobjectDescribeResult: DescribeSObjectResult;
   private classPrefix!: string;
   private baseClassName: string;
+  private bindingSequenceValue: string = '1000.0';
 
   public constructor(sobjectDescribeResult: DescribeSObjectResult, classPrefix?: string) {
     this.sobjectDescribeResult = sobjectDescribeResult;
@@ -61,7 +62,7 @@ class sObjectNames {
     return 'main/schema/custommetadata/applicationFactoryBindings/serviceBindings';
   }
 
-  public static getFilepathForMainUOWBinding(): string {
+  public static getFilepathForMainUnitOfWorkBinding(): string {
     return 'main/schema/custommetadata/applicationFactoryBindings/unitOfWorkBindings';
   }
 
@@ -322,7 +323,7 @@ class sObjectNames {
     );
   }
 
-  public getMetadataFilenameForAT4DXUOWBinding(): string {
+  public getMetadataFilenameForAT4DXUnitOfWorkBinding(): string {
     return (
       'ApplicationFactory_UnitOfWorkBinding__mdt.' +
       this.getApplicationFactorySObjectLabel() +
@@ -343,6 +344,13 @@ class sObjectNames {
       return `<value xsi:type="xsd:string">${this.getApiName()}</value>`;
     }
     return '<value xsi:nil="true"/>';
+  }
+
+  public getBindingSequenceValue(): string {
+    return this.bindingSequenceValue;
+  }
+  public setUnitOfWorkBindingSequence(bindingSequenceValue: string): void {
+    this.bindingSequenceValue = bindingSequenceValue;
   }
 
   private initializeBaseName(): void {
