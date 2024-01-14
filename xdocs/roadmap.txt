@@ -1,8 +1,7 @@
 roadmap
-- generate uow binding
 - generate service class related - SVC, ISVC, SVCImpl, SVCException, SVCTest, and ApplicationFactory_ServiceBinding__mdt.SVC.md-meta.xml
 - generate FFLIBApexCommon flavors -- right now it is AT4DX flavor
-
+- aggregage command to execute all others -- toolbox aep generate
 - generate selector injection method class
 - generate selector selectByParent methods and selectByExternal methods
 - add boolean flags to the "toolbox aep generate" command to either domain, selector, and/or uow
@@ -12,6 +11,9 @@ roadmap
 
 
 Completed
+- generate selector binding
+- generate domain binding
 - selectById() method
     - selectSObjectsById base function doesn't honor inherited sharing.  the workaround was to simply custom where clause for method
 - generate the files into the default hierarchy folder under the generated folder location
+- generate uow binding
