@@ -1,4 +1,5 @@
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { DescribeSObjectResult } from 'jsforce';
 import dotpkg from 'dot';
 import gracefulfspkg from 'graceful-fs';

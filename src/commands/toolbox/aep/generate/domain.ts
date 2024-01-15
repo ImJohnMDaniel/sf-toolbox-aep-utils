@@ -1,26 +1,18 @@
-/* eslint-disable sf-plugin/no-missing-messages */
-// import { dirname } from 'node:path';
-// import { fileURLToPath } from 'node:url';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { DescribeSObjectResult } from 'jsforce';
-// import { template, templateSettings } from 'dot';
 import dotpkg from 'dot';
-// import { writeFile } from 'graceful-fs';
 import gracefulfspkg from 'graceful-fs';
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const { writeFile, mkdirSync } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
 import { apexMetadataSource, domainTemplates, triggerMetadataSource } from '../../../../templates/index.js';
 
 import sObjectNames from '../../../../utils/sObjectNames.js';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const { template, templateSettings } = dotpkg;
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 templateSettings.strip = false;
 
-// Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.domain');
 

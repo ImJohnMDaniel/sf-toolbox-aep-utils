@@ -1,4 +1,4 @@
-// import { string } from '@oclif/core/lib/args.js';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { DescribeSObjectResult, Field } from 'jsforce';
 
 const filenameExtensionForClass: string = '.cls';
