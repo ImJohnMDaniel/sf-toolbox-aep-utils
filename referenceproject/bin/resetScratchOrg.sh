@@ -11,6 +11,11 @@ sf data record update --sobject User --where "Name='User User'" --values "TimeZo
 # processResoucesStage
 sf toolbox package dependencies install 
 
+# clean up sfdx-source/untracked/ folder
+rm -f sfdx-source/untracked/*.cls
+rm -f sfdx-source/untracked/*.trigger
+rm -f sfdx-source/untracked/*.xml
+
 # compilationStage
 sf project deploy start --ignore-conflicts
 
