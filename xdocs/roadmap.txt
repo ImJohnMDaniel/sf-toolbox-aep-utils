@@ -1,14 +1,13 @@
-roadmap
-- generate service class related - SVC, ISVC, SVCImpl, SVCException, SVCTest, and ApplicationFactory_ServiceBinding__mdt.SVC.md-meta.xml
+Roadmap
+- aggregate command to execute all others -- toolbox aep generate
+    - add boolean flags to the "toolbox aep generate" command to either domain, selector, and/or uow
+    - consolidate flags so as to be available from the generate command and the specific "generate selector|domain|unitofwork|service" command
 - generate FFLIBApexCommon flavors -- right now it is AT4DX flavor
-- aggregage command to execute all others -- toolbox aep generate
 - generate selector injection method class
 - generate selector selectByParent methods and selectByExternal methods
-- add boolean flags to the "toolbox aep generate" command to either domain, selector, and/or uow
+- add an "interactive mode" -- flag: -i -- see "sf update -i"
 - config setting to specify your own templates 
 - vscode extension
-
-
 
 Completed
 - generate selector binding
@@ -17,3 +16,4 @@ Completed
     - selectSObjectsById base function doesn't honor inherited sharing.  the workaround was to simply custom where clause for method
 - generate the files into the default hierarchy folder under the generated folder location
 - generate uow binding
+- generate service class related - SVC, ISVC, SVCImpl, SVCException, SVCTest, and ApplicationFactory_ServiceBinding__mdt.SVC.md-meta.xml
