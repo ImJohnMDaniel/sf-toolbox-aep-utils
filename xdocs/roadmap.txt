@@ -10,6 +10,7 @@ Roadmap
 - add an "interactive mode" -- flag: -i -- see "sf update -i"
 - config setting to specify your own templates 
 - vscode extension
+- some sort of way to specify a wild card string for sobject that would process all similarly named sobjects instead of processing one-by-one.
 
 Completed
 - generate selector binding
