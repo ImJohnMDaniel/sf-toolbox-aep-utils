@@ -4,6 +4,8 @@ Roadmap
     - consolidate flags so as to be available from the generate command and the specific "generate selector|domain|unitofwork|service" command
 - generate FFLIBApexCommon flavors -- right now it is AT4DX flavor
 - generate selector injection method class
+- generate domain process injection command
+- generate selector field injection command
 - generate selector selectByParent methods and selectByExternal methods
 - add an "interactive mode" -- flag: -i -- see "sf update -i"
 - config setting to specify your own templates 
