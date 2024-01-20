@@ -4,6 +4,7 @@ import gracefulfspkg from 'graceful-fs';
 const { writeFile, mkdirSync } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
 import { apexMetadataSource, serviceTemplates } from '../../../../templates/index.js';
+import { baseGenerateRelatedFlags } from '../../../../utils/flags.js';
 import serviceNames from '../../../../utils/serviceNames.js';
 
 const { template, templateSettings } = dotpkg;
@@ -11,7 +12,7 @@ const { template, templateSettings } = dotpkg;
 templateSettings.strip = false;
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.selector');
+const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.service');
 
 export type ToolboxAepGenerateSelectorResult = {
   path: string;
@@ -23,28 +24,11 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
   public static readonly examples = messages.getMessages('examples');
 
   public static readonly flags = {
-    'output-path': Flags.directory({
-      exists: true,
-      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
-      summary: 'The output path to deposit the files',
-      char: 'p',
-      required: false,
-    }),
-    prefix: Flags.string({
-      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
-      summary: 'The prefix to create the files with.',
-      required: false,
-    }),
+    ...baseGenerateRelatedFlags,
     'service-basename': Flags.string({
-      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
-      summary: 'The base name that the various service class names will be formed by.',
+      summary: messages.getMessage('flags.service-basename.summary'),
+      description: messages.getMessage('flags.service-basename.description'),
       required: true,
-    }),
-    'api-version': Flags.orgApiVersion({
-      char: 'a',
-      summary: messages.getMessage('flags.api-version.summary'),
-      description: messages.getMessage('flags.api-version.description'),
-      default: '59.0',
     }),
   };
 

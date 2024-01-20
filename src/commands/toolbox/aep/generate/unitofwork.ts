@@ -6,7 +6,7 @@ import gracefulfspkg from 'graceful-fs';
 const { writeFile, mkdirSync } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
 import { unitOfWorkTemplates } from '../../../../templates/index.js';
-
+import { orgRelatedFlags, baseGenerateRelatedFlags, sobjectRelatedFlags } from '../../../../utils/flags.js';
 import sObjectNames from '../../../../utils/sObjectNames.js';
 
 const { template, templateSettings } = dotpkg;
@@ -26,40 +26,14 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
   public static readonly examples = messages.getMessages('examples');
 
   public static readonly flags = {
-    'target-org': Flags.requiredOrg({
-      summary: messages.getMessage('flags.target-org.summary'),
-      description: messages.getMessage('flags.target-org.description'),
-      char: 'o',
-      required: true,
-    }),
-    sobject: Flags.string({
-      summary: messages.getMessage('flags.sobject.summary'),
-      description: messages.getMessage('flags.sobject.description'),
-      char: 's',
-      required: true,
-    }),
-    'output-path': Flags.directory({
-      exists: true,
-      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
-      summary: 'The output path to deposit the files',
-      char: 'p',
-      required: false,
-    }),
-    prefix: Flags.string({
-      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
-      summary: 'The prefix to create the files with.',
-      required: false,
-    }),
+    ...orgRelatedFlags,
+    ...baseGenerateRelatedFlags,
+    ...sobjectRelatedFlags,
     'binding-sequence': Flags.string({
       char: 'b',
       required: false,
-      // eslint-disable-next-line sf-plugin/no-hardcoded-messages-flags
-      summary: 'The Unit Of Work Binding Sequence',
-    }),
-    'api-version': Flags.orgApiVersion({
-      char: 'a',
-      summary: messages.getMessage('flags.api-version.summary'),
-      description: messages.getMessage('flags.api-version.description'),
+      summary: messages.getMessage('flags.binding-sequence.summary'),
+      description: messages.getMessage('flags.binding-sequence.description'),
     }),
   };
 
