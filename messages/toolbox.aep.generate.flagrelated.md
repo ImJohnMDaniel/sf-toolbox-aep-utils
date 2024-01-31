@@ -37,3 +37,11 @@ The output path to deposit the files
 # flags.output-path.description
 
 Need to put together a flags.output-path.description
+
+# flags.binding-sequence.summary
+
+The Unit Of Work Binding Sequence
+
+# flags.binding-sequence.description
+
+Need to put together a flags.binding-sequence.description

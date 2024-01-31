@@ -12,10 +12,11 @@ export const sobject = Flags.string({
 });
 
 export const outputPath = Flags.directory({
-  exists: true,
+  exists: false,
   summary: messages.getMessage('flags.output-path.summary'),
   description: messages.getMessage('flags.output-path.description'),
   char: 'p',
+  default: 'generated-files',
   required: false,
 });
 
@@ -37,6 +38,17 @@ export const apiVersion = Flags.orgApiVersion({
   summary: messages.getMessage('flags.api-version.summary'),
   description: messages.getMessage('flags.api-version.description'),
 });
+
+export const uowBindingSequence = Flags.string({
+  char: 'b',
+  required: false,
+  summary: messages.getMessage('flags.binding-sequence.summary'),
+  description: messages.getMessage('flags.binding-sequence.description'),
+});
+
+export const uowSpecificFlags = {
+  'binding-sequence': uowBindingSequence,
+};
 
 export const sobjectRelatedFlags = {
   sobject,

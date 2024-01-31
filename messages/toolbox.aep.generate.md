@@ -1,18 +1,34 @@
 # summary
 
-Say hello.
+need command summary here
 
 # description
 
 Say hello either to the world or someone you know.
 
-# flags.name.summary
+# flags.unitofwork.summary
 
-The name of the person you'd like to say hello to.
+need flag unitofwork summary here
 
-# flags.name.description
+# flags.unitofwork.description
 
-This person can be anyone in the world!
+need flag unitofwork description here
+
+# flags.domain.summary
+
+need flag domain summary here
+
+# flags.domain.description
+
+need flag domain description here
+
+# flags.selector.summary
+
+need flag selector summary here
+
+# flags.selector.description
+
+need flag selector description here
 
 # examples
 

@@ -1,4 +1,4 @@
-import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { DescribeSObjectResult } from 'jsforce';
 import dotpkg from 'dot';
@@ -6,7 +6,12 @@ import gracefulfspkg from 'graceful-fs';
 const { writeFile, mkdirSync } = gracefulfspkg;
 import { Messages, SfProject } from '@salesforce/core';
 import { unitOfWorkTemplates } from '../../../../templates/index.js';
-import { orgRelatedFlags, baseGenerateRelatedFlags, sobjectRelatedFlags } from '../../../../utils/flags.js';
+import {
+  orgRelatedFlags,
+  baseGenerateRelatedFlags,
+  sobjectRelatedFlags,
+  uowSpecificFlags,
+} from '../../../../utils/flags.js';
 import sObjectNames from '../../../../utils/sObjectNames.js';
 
 const { template, templateSettings } = dotpkg;
@@ -29,12 +34,7 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
     ...orgRelatedFlags,
     ...baseGenerateRelatedFlags,
     ...sobjectRelatedFlags,
-    'binding-sequence': Flags.string({
-      char: 'b',
-      required: false,
-      summary: messages.getMessage('flags.binding-sequence.summary'),
-      description: messages.getMessage('flags.binding-sequence.description'),
-    }),
+    ...uowSpecificFlags,
   };
 
   public async run(): Promise<ToolboxAepGenerateUnitOfWorkResult> {

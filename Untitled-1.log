@@ -1,0 +1,62 @@
+john ~/workspace/_cli-related/sf-toolbox-aep-utils/referenceproject [main] $ sf toolbox aep generate --sobject Account --prefix bluefish -u --binding-sequence 175
+ ›   Warning: @dx-cli-toolbox/sf-toolbox-aep-utils is a linked ESM module and cannot be auto-transpiled. Existing compiled source will be used 
+ ›   instead.
+(node:13068) [MODULE_NOT_FOUND] ModuleLoadError Plugin: @dx-cli-toolbox/sf-toolbox-aep-utils: 
+              [MODULE_NOT_FOUND] import() failed to load /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/domain.js: 
+              Cannot find module '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/templates/index.js' 
+              imported from /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/domain.js
+module: @oclif/core@3.18.1
+task: cacheCommand
+plugin: @dx-cli-toolbox/sf-toolbox-aep-utils
+root: /Users/john/workspace/_cli-related/sf-toolbox-aep-utils
+See more details with DEBUG=*
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:13068) [MODULE_NOT_FOUND] ModuleLoadError Plugin: @dx-cli-toolbox/sf-toolbox-aep-utils: 
+              [MODULE_NOT_FOUND] import() failed to load /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/service.js: 
+              Cannot find module '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/templates/index.js' 
+              imported from /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/service.js
+module: @oclif/core@3.18.1
+task: cacheCommand
+plugin: @dx-cli-toolbox/sf-toolbox-aep-utils
+root: /Users/john/workspace/_cli-related/sf-toolbox-aep-utils
+See more details with DEBUG=*
+
+
+(node:13068) [MODULE_NOT_FOUND] ModuleLoadError Plugin: @dx-cli-toolbox/sf-toolbox-aep-utils: 
+              [MODULE_NOT_FOUND] import() failed to load /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/unitofwork.js: 
+              Cannot find module '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/templates/index.js' 
+              imported from /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/unitofwork.js
+module: @oclif/core@3.18.1
+task: cacheCommand
+plugin: @dx-cli-toolbox/sf-toolbox-aep-utils
+root: /Users/john/workspace/_cli-related/sf-toolbox-aep-utils
+See more details with DEBUG=*
+
+
+(node:13068) [MODULE_NOT_FOUND] ModuleLoadError Plugin: @dx-cli-toolbox/sf-toolbox-aep-utils: 
+              [MODULE_NOT_FOUND] import() failed to load /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/selector.js: 
+              Cannot find module '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/templates/index.js' 
+              imported from /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/selector.js
+module: @oclif/core@3.18.1
+task: cacheCommand
+plugin: @dx-cli-toolbox/sf-toolbox-aep-utils
+root: /Users/john/workspace/_cli-related/sf-toolbox-aep-utils
+See more details with DEBUG=*
+
+
+(node:13068) [MODULE_NOT_FOUND] ModuleLoadError Plugin: @dx-cli-toolbox/sf-toolbox-aep-utils: 
+              [MODULE_NOT_FOUND] import() failed to load /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate.js: 
+              Cannot find module '/Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/templates/index.js' 
+              imported from /Users/john/workspace/_cli-related/sf-toolbox-aep-utils/lib/commands/toolbox/aep/generate/unitofwork.js
+module: @oclif/core@3.18.1
+task: cacheCommand
+plugin: @dx-cli-toolbox/sf-toolbox-aep-utils
+root: /Users/john/workspace/_cli-related/sf-toolbox-aep-utils
+See more details with DEBUG=*
+
+
+ ›   Warning: toolbox aep generate is not a sf command.
+Did you mean force cmdt generate? [y/n]: n
+ ›   Error: Run sf help toolbox for a list of available commands.
