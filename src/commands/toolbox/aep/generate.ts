@@ -6,7 +6,9 @@ import {
   sobjectRelatedFlags,
   uowSpecificFlags,
 } from '../../../utils/flags.js';
-// import ToolboxAepGenerateUnitOfWork from './generate/unitofwork.js';
+import ToolboxAepGenerateUnitOfWork from './generate/unitofwork.js';
+import ToolboxAepGenerateSelector from './generate/selector.js';
+import ToolboxAepGenerateDomain from './generate/domain.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate');
@@ -17,7 +19,7 @@ export type ToolboxAepGenerateResult = {
 
 export const toolboxAepGenerateCommandSpecficFlags = {
   selector: Flags.boolean({
-    char: 's',
+    char: 'r',
     required: false,
     summary: messages.getMessage('flags.selector.summary'),
     description: messages.getMessage('flags.selector.description'),
@@ -84,7 +86,15 @@ export default class ToolboxAepGenerate extends SfCommand<ToolboxAepGenerateResu
 
     if (flags['unit-of-work']) {
       // await this.config.runCommand('toolbox aep generate unitofwork', flagsArray);
-      // await ToolboxAepGenerateUnitOfWork.run(flagsArray);
+      await ToolboxAepGenerateUnitOfWork.run(flagsArray);
+    }
+
+    if (flags['selector']) {
+      await ToolboxAepGenerateSelector.run(flagsArray);
+    }
+
+    if (flags['domain']) {
+      await ToolboxAepGenerateDomain.run(flagsArray);
     }
 
     return {
