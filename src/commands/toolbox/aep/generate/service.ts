@@ -14,11 +14,11 @@ templateSettings.strip = false;
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@dx-cli-toolbox/sf-toolbox-aep-utils', 'toolbox.aep.generate.service');
 
-export type ToolboxAepGenerateSelectorResult = {
+export type ToolboxAepGenerateServiceResult = {
   path: string;
 };
 
-export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGenerateSelectorResult> {
+export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGenerateServiceResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -32,8 +32,8 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     }),
   };
 
-  public async run(): Promise<ToolboxAepGenerateSelectorResult> {
-    const { flags } = await this.parse(ToolboxAepGenerateSelector);
+  public async run(): Promise<ToolboxAepGenerateServiceResult> {
+    const { flags } = await this.parse(ToolboxAepGenerateService);
 
     const basePath: string = await SfProject.resolveProjectPath();
 
