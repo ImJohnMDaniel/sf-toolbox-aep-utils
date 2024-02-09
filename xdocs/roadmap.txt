@@ -1,7 +1,4 @@
 Roadmap
-- aggregate command to execute all others -- toolbox aep generate
-    - add boolean flags to the "toolbox aep generate" command to either domain, selector, and/or uow
-    - consolidate flags so as to be available from the generate command and the specific "generate selector|domain|unitofwork|service" command
 - generate FFLIBApexCommon flavors -- right now it is AT4DX flavor
 - generate selector injection method class
 - generate domain process injection command
@@ -20,3 +17,6 @@ Completed
 - generate the files into the default hierarchy folder under the generated folder location
 - generate uow binding
 - generate service class related - SVC, ISVC, SVCImpl, SVCException, SVCTest, and ApplicationFactory_ServiceBinding__mdt.SVC.md-meta.xml
+- aggregate command to execute all others -- toolbox aep generate
+    - add boolean flags to the "toolbox aep generate" command to either domain, selector, and/or uow
+    - consolidate flags so as to be available from the generate command and the specific "generate selector|domain|unitofwork|service" command
