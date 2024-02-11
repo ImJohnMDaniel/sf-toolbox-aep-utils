@@ -1,7 +1,7 @@
 {
   "name": "@dx-cli-toolbox/sf-toolbox-aep-utils",
   "description": "Utility commands to aid the setup of Selector and Domain classes according to the Apex Enterprise Patterns Open Source Projects",
-  "version": "0.7.0",
+  "version": "0.7.5",
   "author": "ImJohnMDaniel",
   "bugs": "https://github.com/ImJohnMDaniel/sf-toolbox-aep-utils/issues",
   "dependencies": {
