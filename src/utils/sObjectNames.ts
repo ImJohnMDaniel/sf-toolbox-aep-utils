@@ -344,24 +344,24 @@ class sObjectNames {
   private initializeBaseName(): void {
     let workingBaseName = this.getApiName(); // Property__c
     // eslint-disable-next-line no-console
-    console.log(`workingBaseName1: ${workingBaseName}`);
+    // console.log(`workingBaseName1: ${workingBaseName}`);
     // eslint-disable-next-line no-console
-    console.log(`this.classPrefix: ${this.classPrefix}`);
+    // console.log(`this.classPrefix: ${this.classPrefix}`);
     // remove the prefix, if present
     if (this.classPrefix) {
       workingBaseName = workingBaseName.replace(this.classPrefix, '');
     }
 
     // eslint-disable-next-line no-console
-    console.log(`workingBaseName2: ${workingBaseName}`);
+    // console.log(`workingBaseName2: ${workingBaseName}`);
     workingBaseName = sObjectNames.cleanUpClassName(workingBaseName); // Property
 
     // eslint-disable-next-line no-console
-    console.log(`workingBaseName3: ${workingBaseName}`);
+    // console.log(`workingBaseName3: ${workingBaseName}`);
     workingBaseName = sObjectNames.getPluralFormOfWord(workingBaseName); // Properties
 
     // eslint-disable-next-line no-console
-    console.log(`workingBaseName4: ${workingBaseName}`);
+    // console.log(`workingBaseName4: ${workingBaseName}`);
     this.baseClassName = workingBaseName;
 
     return;
