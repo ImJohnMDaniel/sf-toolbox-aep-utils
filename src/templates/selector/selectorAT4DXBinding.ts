@@ -1,4 +1,4 @@
-const selectorBinding: string = `<?xml version="1.0" encoding="UTF-8"?>
+const selectorAT4DXBinding: string = `<?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <label>{{=it.sobj.getApplicationFactorySObjectLabel()}}</label>
     <protected>false</protected>
@@ -17,4 +17,4 @@ const selectorBinding: string = `<?xml version="1.0" encoding="UTF-8"?>
 </CustomMetadata>
 `;
 
-export default selectorBinding;
+export default selectorAT4DXBinding;

@@ -59,9 +59,6 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForTestSelectorClass()}`, {
       recursive: true,
     });
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainSelectorBinding()}`, {
-      recursive: true,
-    });
 
     // Setup Apex class metadata file template
     const apiVersion = conn.getApiVersion();
@@ -69,7 +66,10 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const apexMetadataContent = apexMetadataTemplate({ apiVersion });
 
     // Write the selector class to a file
-    const selectorClassTemplate = template(selectorTemplates.selectorClass);
+    let selectorClassTemplate = template(selectorTemplates.selectorAT4DXClass);
+    if (flags['fflib']) {
+      selectorClassTemplate = template(selectorTemplates.selectorFFLIBClass);
+    }
     const implementationClassContent = selectorClassTemplate({ sobj });
     writeFile(
       `${basePath}/${
@@ -91,7 +91,10 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     );
 
     // Write the selector interface to a file
-    const selectorInterfaceTemplate = template(selectorTemplates.selectorInterface);
+    let selectorInterfaceTemplate = template(selectorTemplates.selectorAT4DXInterface);
+    if (flags['fflib']) {
+      selectorInterfaceTemplate = template(selectorTemplates.selectorFFLIBInterface);
+    }
     const interfaceClassContent = selectorInterfaceTemplate({ sobj });
     writeFile(
       `${basePath}/${
@@ -114,7 +117,10 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     );
 
     // Write the selector unit test to a file
-    const selectorUnitTestTemplate = template(selectorTemplates.selectorUnitTest);
+    let selectorUnitTestTemplate = template(selectorTemplates.selectorAT4DXUnitTest);
+    if (flags['fflib']) {
+      selectorUnitTestTemplate = template(selectorTemplates.selectorFFLIBUnitTest);
+    }
     const unitTestClassContent = selectorUnitTestTemplate({ sobj });
     writeFile(
       `${basePath}/${
@@ -135,16 +141,22 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       logError
     );
 
-    // Write the AT4DX ApplicationFactory_SelectorBinding file
-    const selectorBindingTemplate = template(selectorTemplates.selectorBinding);
-    const selectorBindingContent = selectorBindingTemplate({ sobj });
-    writeFile(
-      `${basePath}/${
-        flags['output-path']
-      }/${sObjectNames.getFilepathForMainSelectorBinding()}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
-      selectorBindingContent,
-      logError
-    );
+    if (flags['at4dx']) {
+      mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainSelectorBinding()}`, {
+        recursive: true,
+      });
+
+      // Write the AT4DX ApplicationFactory_SelectorBinding file
+      const selectorBindingTemplate = template(selectorTemplates.selectorAT4DXBinding);
+      const selectorBindingContent = selectorBindingTemplate({ sobj });
+      writeFile(
+        `${basePath}/${
+          flags['output-path']
+        }/${sObjectNames.getFilepathForMainSelectorBinding()}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
+        selectorBindingContent,
+        logError
+      );
+    }
 
     return {
       path: `${basePath} `,

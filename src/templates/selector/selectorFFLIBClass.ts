@@ -1,5 +1,5 @@
-const selectorClass: string = `public inherited sharing class {{=it.sobj.getSelectorImplementationClassName()}}
-    extends ApplicationSObjectSelector
+const selectorFFLIBClass: string = `public inherited sharing class {{=it.sobj.getSelectorImplementationClassName()}}
+    extends fflib_SObjectSelector
     implements {{=it.sobj.getSelectorInterfaceClassName()}} 
 {
     public static {{=it.sobj.getSelectorInterfaceClassName()}} newInstance()
@@ -21,14 +21,6 @@ const selectorClass: string = `public inherited sharing class {{=it.sobj.getSele
         
     }
 
-    @TestVisible
-    private List<Schema.SObjectField> getAdditionalSObjectFieldList()
-    {
-        return new List<Schema.SObjectField> {
-            
-        };
-    }
-
     public List<{{=it.sobj.getApiName()}}> selectById(Set<Id> idSet)
     {
         return (List<{{=it.sobj.getApiName()}}>) Database.query(newQueryFactory().setCondition('id in :idSet').toSOQL());
@@ -38,4 +30,4 @@ const selectorClass: string = `public inherited sharing class {{=it.sobj.getSele
 }
 `;
 
-export default selectorClass;
+export default selectorFFLIBClass;
