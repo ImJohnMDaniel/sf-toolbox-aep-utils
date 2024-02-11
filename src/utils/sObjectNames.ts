@@ -79,7 +79,7 @@ class sObjectNames {
   // eslint-disable-next-line complexity
   private static getPluralFormOfWord(word: string): string {
     // eslint-disable-next-line no-console
-    console.log(`word: ${word}`);
+    // console.log(`word: ${word}`);
     if (word.endsWith('bus')) {
       word = word + 'ses';
     } else if (word.endsWith('fez')) {

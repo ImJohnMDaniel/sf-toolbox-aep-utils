@@ -57,10 +57,9 @@ export default class ToolboxAepGenerate extends SfCommand<ToolboxAepGenerateResu
   public async run(): Promise<ToolboxAepGenerateResult> {
     const { flags } = await this.parse(ToolboxAepGenerate);
 
-    this.log('selector flag: ' + flags['selector']);
-    this.log('domain flag: ' + flags['domain']);
-    this.log('unit-of-work flag: ' + flags['unit-of-work']);
-    // await this.config.runCommand('do:stuff', ['--flag1', '--flag2'])
+    this.debug('selector flag: ' + flags['selector']);
+    this.debug('domain flag: ' + flags['domain']);
+    this.debug('unit-of-work flag: ' + flags['unit-of-work']);
 
     const flagsArray: string[] = [];
 
@@ -68,21 +67,27 @@ export default class ToolboxAepGenerate extends SfCommand<ToolboxAepGenerateResu
 
     const theTargetOrg: Org = flags['target-org'];
 
-    this.log(theTargetOrg.getUsername());
+    this.debug(theTargetOrg.getUsername());
     Object.keys(flags).forEach((element) => {
       if (!keysToExclude.includes(element)) {
         flagsArray.push('--' + element);
         if (flags[element] instanceof Org) {
           const theOrg = flags[element] as Org;
           flagsArray.push(theOrg.getUsername()!);
-        } else if (flags[element] && !(flags[element] === true)) {
+        } else if (
+          flags[element] &&
+          // Don't push the value of a boolean.
+          // A boolean flag is only true if the flag itself is pushed.
+          // The implicit value of "true" does not need to be pushed to the flagsArray.
+          !(flags[element] === true)
+        ) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           flagsArray.push(flags[element]);
         }
       }
     });
 
-    this.log('flagsArray: ' + flagsArray.toString());
+    this.debug('flagsArray: ' + flagsArray.toString());
 
     if (flags['unit-of-work']) {
       // await this.config.runCommand('toolbox aep generate unitofwork', flagsArray);
