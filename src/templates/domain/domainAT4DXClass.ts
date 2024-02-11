@@ -1,4 +1,4 @@
-const domainClass: string = `public inherited sharing class {{=it.sobj.getDomainImplementationClassName()}}
+const domainAT4DXClass: string = `public inherited sharing class {{=it.sobj.getDomainImplementationClassName()}}
     extends ApplicationSObjectDomain
     implements {{=it.sobj.getDomainInterfaceClassName()}}
 {
@@ -28,4 +28,4 @@ const domainClass: string = `public inherited sharing class {{=it.sobj.getDomain
 }
 `;
 
-export default domainClass;
+export default domainAT4DXClass;

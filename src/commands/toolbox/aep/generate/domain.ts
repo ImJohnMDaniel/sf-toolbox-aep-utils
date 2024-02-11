@@ -59,9 +59,6 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForTestDomainClass()}`, {
       recursive: true,
     });
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainDomainBinding()}`, {
-      recursive: true,
-    });
     mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainTrigger()}`, { recursive: true });
 
     // Setup Apex class metadata file template
@@ -70,7 +67,10 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const apexMetadataContent = apexMetadataTemplate({ apiVersion });
 
     // Write the domain class to a file
-    const domainClassTemplate = template(domainTemplates.domainClass);
+    let domainClassTemplate = template(domainTemplates.domainAT4DXClass);
+    if (flags['fflib']) {
+      domainClassTemplate = template(domainTemplates.domainFFLIBClass);
+    }
     const implementationClassContent = domainClassTemplate({ sobj });
     writeFile(
       `${basePath}/${
@@ -92,7 +92,10 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     );
 
     // Write the domain interface to a file
-    const domainInterfaceTemplate = template(domainTemplates.domainInterface);
+    let domainInterfaceTemplate = template(domainTemplates.domainAT4DXInterface);
+    if (flags['fflib']) {
+      domainInterfaceTemplate = template(domainTemplates.domainFFLIBInterface);
+    }
     const interfaceClassContent = domainInterfaceTemplate({ sobj });
     writeFile(
       `${basePath}/${
@@ -159,16 +162,22 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       logError
     );
 
-    // Write the AT4DX ApplicationFactory_DomainBinding file
-    const domainBindingTemplate = template(domainTemplates.domainBinding);
-    const domainBindingContent = domainBindingTemplate({ sobj });
-    writeFile(
-      `${basePath}/${
-        flags['output-path']
-      }/${sObjectNames.getFilepathForMainDomainBinding()}/${sobj.getMetadataFilenameForAT4DXDomainBinding()}`,
-      domainBindingContent,
-      logError
-    );
+    if (flags['at4dx']) {
+      mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainDomainBinding()}`, {
+        recursive: true,
+      });
+
+      // Write the AT4DX ApplicationFactory_DomainBinding file
+      const domainBindingTemplate = template(domainTemplates.domainAT4DXBinding);
+      const domainBindingContent = domainBindingTemplate({ sobj });
+      writeFile(
+        `${basePath}/${
+          flags['output-path']
+        }/${sObjectNames.getFilepathForMainDomainBinding()}/${sobj.getMetadataFilenameForAT4DXDomainBinding()}`,
+        domainBindingContent,
+        logError
+      );
+    }
 
     return {
       path: `${basePath} `,
