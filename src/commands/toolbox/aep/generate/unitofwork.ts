@@ -62,21 +62,28 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
       sobj.setUnitOfWorkBindingSequence(flags['binding-sequence']);
     }
 
-    // ensure that all output path folders are created
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainUnitOfWorkBinding()}`, {
-      recursive: true,
-    });
+    if (flags['at4dx']) {
+      // ensure that all output path folders are created
+      mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainUnitOfWorkBinding()}`, {
+        recursive: true,
+      });
 
-    // Write the AT4DX ApplicationFactory_UnitOfWorkBinding file
-    const unitOfWorkBindingTemplate = template(unitOfWorkTemplates.unitOfWorkBinding);
-    const unitOfWorkBindingContent = unitOfWorkBindingTemplate({ sobj });
-    writeFile(
-      `${basePath}/${
-        flags['output-path']
-      }/${sObjectNames.getFilepathForMainUnitOfWorkBinding()}/${sobj.getMetadataFilenameForAT4DXUnitOfWorkBinding()}`,
-      unitOfWorkBindingContent,
-      logError
-    );
+      // Write the AT4DX ApplicationFactory_UnitOfWorkBinding file
+      const unitOfWorkBindingTemplate = template(unitOfWorkTemplates.unitOfWorkBinding);
+      const unitOfWorkBindingContent = unitOfWorkBindingTemplate({ sobj });
+      writeFile(
+        `${basePath}/${
+          flags['output-path']
+        }/${sObjectNames.getFilepathForMainUnitOfWorkBinding()}/${sobj.getMetadataFilenameForAT4DXUnitOfWorkBinding()}`,
+        unitOfWorkBindingContent,
+        logError
+      );
+    } else {
+      this.log(
+        '\n\nPlease add the following binding to the Application.cls; specifically the fflib_Application.UnitOfWorkFactory entry.'
+      );
+      this.log(`    ${sobj.getApiName()}.SObjectType`);
+    }
 
     return {
       path: `${basePath} `,
