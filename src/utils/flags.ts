@@ -83,22 +83,26 @@ export const uowBindingSequence = Flags.string({
   description: messages.getMessage('flags.binding-sequence.description'),
 });
 
+// flags specific to the UnitOfWork command
 export const uowSpecificFlags = {
   'binding-sequence': uowBindingSequence,
 };
 
+// flags that go with commands that require SObjects
 export const sobjectRelatedFlags = {
   sobject,
-};
-
-export const baseGenerateRelatedFlags = {
-  'output-path': outputPath,
-  'api-version': apiVersion,
-  prefix,
   at4dx,
   fflib,
 };
 
+// flags that go with all commands
+export const baseGenerateRelatedFlags = {
+  'output-path': outputPath,
+  'api-version': apiVersion,
+  prefix,
+};
+
+// flags that go with command requiring an org
 export const orgRelatedFlags = {
   'target-org': targetOrg,
 };
