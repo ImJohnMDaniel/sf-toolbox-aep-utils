@@ -75,7 +75,7 @@ export default class ToolboxAepGenerate extends SfCommand<ToolboxAepGenerateResu
         if (flags[element] instanceof Org) {
           const theOrg = flags[element] as Org;
           flagsArray.push(theOrg.getUsername()!);
-        } else if (flags[element]) {
+        } else if (flags[element] && !(flags[element] === true)) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           flagsArray.push(flags[element]);
         }

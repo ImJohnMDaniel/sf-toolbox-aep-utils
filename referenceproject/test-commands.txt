@@ -24,5 +24,6 @@ sf toolbox aep generate unitofwork --output-path generated-files --sobject FOOBA
 
 sf toolbox aep generate service --output-path generated-files --prefix foobar --service-basename LimitMonitors
 
+sf toolbox aep generate --sobject FOOBAR_Brokerage__c --prefix foobar --selector --domain --unit-of-work --at4dx
 
-
+sf toolbox aep generate --sobject Account --selector --domain --unit-of-work --fflib

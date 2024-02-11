@@ -45,3 +45,19 @@ The Unit Of Work Binding Sequence
 # flags.binding-sequence.description
 
 Need to put together a flags.binding-sequence.description
+
+# flags.at4dx.summary
+
+The type of files will be generated in the AT4DX style.
+
+# flags.at4dx.description
+
+The command will generate necessary files in either the FFLIB or AT4DX type. If this option is selected, then the files will be generated in the AT4DX style.
+
+# flags.fflib.summary
+
+The type of files will be generated in the FFLIB style.
+
+# flags.fflib.description
+
+The command will generate necessary files in either the FFLIB or AT4DX type. If this option is selected, then the files will be generated in the FFLIB style.
