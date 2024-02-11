@@ -1,5 +1,4 @@
 Roadmap
-- generate FFLIBApexCommon flavors -- right now it is AT4DX flavor
 - generate selector injection method class
 - generate domain process injection command
 - generate selector field injection command
@@ -10,6 +9,7 @@ Roadmap
 - some sort of way to specify a wild card string for sobject that would process all similarly named sobjects instead of processing one-by-one.
 
 Completed
+v0.5.0
 - generate selector binding
 - generate domain binding
 - selectById() method
@@ -17,6 +17,9 @@ Completed
 - generate the files into the default hierarchy folder under the generated folder location
 - generate uow binding
 - generate service class related - SVC, ISVC, SVCImpl, SVCException, SVCTest, and ApplicationFactory_ServiceBinding__mdt.SVC.md-meta.xml
+v0.6.0
 - aggregate command to execute all others -- toolbox aep generate
     - add boolean flags to the "toolbox aep generate" command to either domain, selector, and/or uow
     - consolidate flags so as to be available from the generate command and the specific "generate selector|domain|unitofwork|service" command
+v0.7.0
+- generate FFLIBApexCommon flavors -- right now it is AT4DX flavor
