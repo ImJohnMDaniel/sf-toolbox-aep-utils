@@ -5,7 +5,7 @@
   "author": "ImJohnMDaniel",
   "bugs": "https://github.com/ImJohnMDaniel/sf-toolbox-aep-utils/issues",
   "dependencies": {
-    "@oclif/core": "^3.19.1",
+    "@oclif/core": "^3.19.2",
     "@salesforce/core": "^6.5.3",
     "@salesforce/sf-plugins-core": "^7.1.9",
     "@types/dot": "^1.1.7",
