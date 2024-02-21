@@ -12,6 +12,11 @@ const domainAT4DXClass: string = `public inherited sharing class {{=it.sobj.getD
         return ({{=it.sobj.getDomainInterfaceClassName()}}) Application.Domain.newInstance(recordIds);
     }
 
+    public {{=it.sobj.getDomainImplementationClassName()}}()
+    {
+        
+    }
+
     public {{=it.sobj.getDomainImplementationClassName()}}(List<{{=it.sobj.getApiName()}}> records)
     {
         super(records);
