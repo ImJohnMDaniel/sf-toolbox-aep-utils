@@ -8,6 +8,7 @@ import { Messages, SfProject } from '@salesforce/core';
 import { apexMetadataSource, domainTemplates, triggerMetadataSource } from '../../../../templates/index.js';
 import { orgRelatedFlags, baseGenerateRelatedFlags, sobjectRelatedFlags } from '../../../../utils/flags.js';
 import sObjectNames from '../../../../utils/sObjectNames.js';
+import filepathNames from '../../../../utils/filepathNames.js';
 
 const { template, templateSettings } = dotpkg;
 
@@ -53,13 +54,13 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     const sobj: sObjectNames = new sObjectNames(describeResult, flags['prefix']);
 
     // ensure that all output path folders are created
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainDomainClass()}`, {
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainDomainClass()}`, {
       recursive: true,
     });
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForTestDomainClass()}`, {
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForTestDomainClass()}`, {
       recursive: true,
     });
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainTrigger()}`, { recursive: true });
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainTrigger()}`, { recursive: true });
 
     // Setup Apex class metadata file template
     const apiVersion = conn.getApiVersion();
@@ -75,7 +76,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainDomainClass()}/${sObjectNames.getFilenameForClass(
         sobj.getDomainImplementationClassName()
       )}`,
       implementationClassContent,
@@ -84,7 +85,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getDomainImplementationClassName()
       )}`,
       apexMetadataContent,
@@ -100,7 +101,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainDomainClass()}/${sObjectNames.getFilenameForClass(
         sobj.getDomainInterfaceClassName()
       )}`,
       interfaceClassContent,
@@ -109,7 +110,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getDomainInterfaceClassName()
       )}`,
       apexMetadataContent,
@@ -122,7 +123,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForTestDomainClass()}/${sObjectNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForTestDomainClass()}/${sObjectNames.getFilenameForClass(
         sobj.getDomainUnitTestClassName()
       )}`,
       unitTestClassContent,
@@ -131,7 +132,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForTestDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForTestDomainClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getDomainUnitTestClassName()
       )}`,
       apexMetadataContent,
@@ -144,7 +145,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainTrigger()}/${sObjectNames.getFilenameForTrigger(
+      }/${filepathNames.getFilepathForMainTrigger()}/${sObjectNames.getFilenameForTrigger(
         sobj.getDomainImplementationClassName()
       )}`,
       domainTriggerContent,
@@ -155,7 +156,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainTrigger()}/${sObjectNames.getMetadataFilenameForTrigger(
+      }/${filepathNames.getFilepathForMainTrigger()}/${sObjectNames.getMetadataFilenameForTrigger(
         sobj.getDomainImplementationClassName()
       )}`,
       triggerMetadataContent,
@@ -163,7 +164,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
     );
 
     if (flags['at4dx']) {
-      mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainDomainBinding()}`, {
+      mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainDomainBinding()}`, {
         recursive: true,
       });
 
@@ -173,7 +174,7 @@ export default class ToolboxAepGenerateDomain extends SfCommand<ToolboxAepGenera
       writeFile(
         `${basePath}/${
           flags['output-path']
-        }/${sObjectNames.getFilepathForMainDomainBinding()}/${sobj.getMetadataFilenameForAT4DXDomainBinding()}`,
+        }/${filepathNames.getFilepathForMainDomainBinding()}/${sobj.getMetadataFilenameForAT4DXDomainBinding()}`,
         domainBindingContent,
         logError
       );

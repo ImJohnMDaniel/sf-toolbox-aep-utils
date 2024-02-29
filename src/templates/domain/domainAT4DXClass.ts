@@ -14,7 +14,7 @@ const domainAT4DXClass: string = `public inherited sharing class {{=it.sobj.getD
 
     public {{=it.sobj.getDomainImplementationClassName()}}()
     {
-        
+        super( new List<{{=it.sobj.getApiName()}}>() );
     }
 
     public {{=it.sobj.getDomainImplementationClassName()}}(List<{{=it.sobj.getApiName()}}> records)

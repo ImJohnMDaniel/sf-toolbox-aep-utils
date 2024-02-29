@@ -13,6 +13,7 @@ import {
   uowSpecificFlags,
 } from '../../../../utils/flags.js';
 import sObjectNames from '../../../../utils/sObjectNames.js';
+import filepathNames from '../../../../utils/filepathNames.js';
 
 const { template, templateSettings } = dotpkg;
 
@@ -64,7 +65,7 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
 
     if (flags['at4dx']) {
       // ensure that all output path folders are created
-      mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainUnitOfWorkBinding()}`, {
+      mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainUnitOfWorkBinding()}`, {
         recursive: true,
       });
 
@@ -74,7 +75,7 @@ export default class ToolboxAepGenerateUnitOfWork extends SfCommand<ToolboxAepGe
       writeFile(
         `${basePath}/${
           flags['output-path']
-        }/${sObjectNames.getFilepathForMainUnitOfWorkBinding()}/${sobj.getMetadataFilenameForAT4DXUnitOfWorkBinding()}`,
+        }/${filepathNames.getFilepathForMainUnitOfWorkBinding()}/${sobj.getMetadataFilenameForAT4DXUnitOfWorkBinding()}`,
         unitOfWorkBindingContent,
         logError
       );

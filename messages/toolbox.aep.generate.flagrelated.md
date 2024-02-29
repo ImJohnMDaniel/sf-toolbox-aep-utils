@@ -22,6 +22,22 @@ Target API version for the deploy.
 
 Use this flag to override the default API version with the API version of your package.xml file. The default API version is the latest version supported by the CLI.
 
+# flags.class-name.summary
+
+Selector Method Injection Class name
+
+# flags.class-name.description
+
+Use this flag to specify the Selector Method Injection Class name.
+
+# flags.sobject-selector-class-name.summary
+
+The base Sobject Selector name
+
+# flags.sobject-selector-class-name.description
+
+Use this flag to specify the the base Sobject Selector Class name.
+
 # flags.prefix.summary
 
 The prefix to create the files with.

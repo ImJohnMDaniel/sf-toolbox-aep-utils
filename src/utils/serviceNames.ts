@@ -1,5 +1,4 @@
-const filenameExtensionForClass: string = '.cls';
-const filenameExtensionForMetadata: string = '-meta.xml';
+import { FILENAME_EXTENSION_FOR_CLASS, FILENAME_EXTENSION_FOR_METADATA } from './constants.js';
 
 class serviceNames {
   private classPrefix!: string;
@@ -13,24 +12,12 @@ class serviceNames {
     }
     this.baseClassName = serviceBasename;
   }
-  public static getFilepathForMainServiceClass(): string {
-    return 'main/classes/services';
-  }
-
-  public static getFilepathForTestServiceClass(): string {
-    return 'test/classes/services';
-  }
-
-  public static getFilepathForMainServiceBinding(): string {
-    return 'main/schema/custommetadata/applicationFactoryBindings/serviceBindings';
-  }
-
   public static getFilenameForClass(className: string): string {
-    return className + filenameExtensionForClass;
+    return className + FILENAME_EXTENSION_FOR_CLASS;
   }
 
   public static getMetadataFilenameForClass(className: string): string {
-    return serviceNames.getFilenameForClass(className) + filenameExtensionForMetadata;
+    return serviceNames.getFilenameForClass(className) + FILENAME_EXTENSION_FOR_METADATA;
   }
 
   public diagnosticReport(): string {
@@ -96,10 +83,10 @@ class serviceNames {
 
   public getMetadataFilenameForAT4DXServiceBinding(): string {
     return (
-      'ApplicationFactory_ServiceBinding__mdt.' +
+      'ApplicationFactory_ServiceBinding.' +
       this.getServiceInterfaceClassName() +
       '.md' +
-      filenameExtensionForMetadata
+      FILENAME_EXTENSION_FOR_METADATA
     );
   }
 

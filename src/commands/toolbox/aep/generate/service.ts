@@ -6,6 +6,7 @@ import { Messages, SfProject } from '@salesforce/core';
 import { apexMetadataSource, serviceTemplates } from '../../../../templates/index.js';
 import { baseGenerateRelatedFlags } from '../../../../utils/flags.js';
 import serviceNames from '../../../../utils/serviceNames.js';
+import filepathNames from '../../../../utils/filepathNames.js';
 
 const { template, templateSettings } = dotpkg;
 
@@ -37,7 +38,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
 
     const basePath: string = await SfProject.resolveProjectPath();
 
-    const apiVersion: string = flags['api-version'] ? flags['api-version'] : '59.0';
+    const apiVersion: string = flags['api-version'] ? flags['api-version'] : '60.0';
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const logError = function (err: any): void {
@@ -50,13 +51,13 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     const svcNames: serviceNames = new serviceNames(flags['service-basename'], flags['prefix']);
 
     // ensure that all output path folders are created
-    mkdirSync(`${basePath}/${flags['output-path']}/${serviceNames.getFilepathForMainServiceBinding()}`, {
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainServiceBinding()}`, {
       recursive: true,
     });
-    mkdirSync(`${basePath}/${flags['output-path']}/${serviceNames.getFilepathForMainServiceClass()}`, {
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainServiceClass()}`, {
       recursive: true,
     });
-    mkdirSync(`${basePath}/${flags['output-path']}/${serviceNames.getFilepathForTestServiceClass()}`, {
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForTestServiceClass()}`, {
       recursive: true,
     });
 
@@ -70,7 +71,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
         svcNames.getServiceFacadeClassName()
       )}`,
       facadeClassContent,
@@ -79,7 +80,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
         svcNames.getServiceFacadeClassName()
       )}`,
       apexMetadataContent,
@@ -92,7 +93,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
         svcNames.getServiceInterfaceClassName()
       )}`,
       interfaceClassContent,
@@ -101,7 +102,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
         svcNames.getServiceInterfaceClassName()
       )}`,
       apexMetadataContent,
@@ -114,7 +115,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
         svcNames.getServiceImplementationClassName()
       )}`,
       implementationClassContent,
@@ -123,7 +124,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
         svcNames.getServiceImplementationClassName()
       )}`,
       apexMetadataContent,
@@ -136,7 +137,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getFilenameForClass(
         svcNames.getServiceExceptionClassName()
       )}`,
       exceptionClassContent,
@@ -145,7 +146,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainServiceClass()}/${serviceNames.getMetadataFilenameForClass(
         svcNames.getServiceExceptionClassName()
       )}`,
       apexMetadataContent,
@@ -158,7 +159,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForTestServiceClass()}/${serviceNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForTestServiceClass()}/${serviceNames.getFilenameForClass(
         svcNames.getServiceUnitTestClassName()
       )}`,
       unitTestClassContent,
@@ -167,7 +168,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForTestServiceClass()}/${serviceNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForTestServiceClass()}/${serviceNames.getMetadataFilenameForClass(
         svcNames.getServiceUnitTestClassName()
       )}`,
       apexMetadataContent,
@@ -180,7 +181,7 @@ export default class ToolboxAepGenerateService extends SfCommand<ToolboxAepGener
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${serviceNames.getFilepathForMainServiceBinding()}/${svcNames.getMetadataFilenameForAT4DXServiceBinding()}`,
+      }/${filepathNames.getFilepathForMainServiceBinding()}/${svcNames.getMetadataFilenameForAT4DXServiceBinding()}`,
       selectorBindingContent,
       logError
     );

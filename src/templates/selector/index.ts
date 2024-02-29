@@ -5,6 +5,8 @@ import selectorAT4DXBinding from './selectorAT4DXBinding.js';
 import selectorFFLIBClass from './selectorFFLIBClass.js';
 import selectorFFLIBInterface from './selectorFFLIBInterface.js';
 import selectorFFLIBUnitTest from './selectorFFLIBUnitTest.js';
+import selectorAT4DXMethodInjectionClass from './selectorAT4DXMethodInjectionClass.js';
+import selectorAT4DXMethodInjectionUnitTest from './selectorAT4DXMethodInjectionUnitTest.js';
 
 export default {
   selectorAT4DXBinding,
@@ -14,4 +16,6 @@ export default {
   selectorFFLIBClass,
   selectorFFLIBInterface,
   selectorFFLIBUnitTest,
+  selectorAT4DXMethodInjectionClass,
+  selectorAT4DXMethodInjectionUnitTest,
 };

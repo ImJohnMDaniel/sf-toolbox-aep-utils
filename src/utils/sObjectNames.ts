@@ -1,9 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { DescribeSObjectResult, Field } from 'jsforce';
-
-const filenameExtensionForClass: string = '.cls';
-const filenameExtensionForTrigger: string = '.trigger';
-const filenameExtensionForMetadata: string = '-meta.xml';
+import {
+  FILENAME_EXTENSION_FOR_CLASS,
+  FILENAME_EXTENSION_FOR_METADATA,
+  FILENAME_EXTENSION_FOR_TRIGGER,
+} from './constants.js';
 
 class sObjectNames {
   private sobjectDescribeResult: DescribeSObjectResult;
@@ -22,52 +23,20 @@ class sObjectNames {
     this.initializeBaseName();
   }
 
-  public static getFilepathForMainDomainClass(): string {
-    return 'main/classes/domains';
-  }
-
-  public static getFilepathForTestDomainClass(): string {
-    return 'test/classes/domains';
-  }
-
-  public static getFilepathForMainDomainBinding(): string {
-    return 'main/schema/custommetadata/applicationFactoryBindings/domainBindings';
-  }
-
-  public static getFilepathForMainTrigger(): string {
-    return 'main/schema/triggers';
-  }
-
-  public static getFilepathForMainSelectorClass(): string {
-    return 'main/classes/selectors';
-  }
-
-  public static getFilepathForTestSelectorClass(): string {
-    return 'test/classes/selectors';
-  }
-
-  public static getFilepathForMainSelectorBinding(): string {
-    return 'main/schema/custommetadata/applicationFactoryBindings/selectorBindings';
-  }
-
-  public static getFilepathForMainUnitOfWorkBinding(): string {
-    return 'main/schema/custommetadata/applicationFactoryBindings/unitOfWorkBindings';
-  }
-
   public static getFilenameForClass(className: string): string {
-    return className + filenameExtensionForClass;
+    return className + FILENAME_EXTENSION_FOR_CLASS;
   }
 
   public static getMetadataFilenameForClass(className: string): string {
-    return sObjectNames.getFilenameForClass(className) + filenameExtensionForMetadata;
+    return sObjectNames.getFilenameForClass(className) + FILENAME_EXTENSION_FOR_METADATA;
   }
 
   public static getFilenameForTrigger(triggerName: string): string {
-    return triggerName + filenameExtensionForTrigger;
+    return triggerName + FILENAME_EXTENSION_FOR_TRIGGER;
   }
 
   public static getMetadataFilenameForTrigger(triggerName: string): string {
-    return sObjectNames.getFilenameForTrigger(triggerName) + filenameExtensionForMetadata;
+    return sObjectNames.getFilenameForTrigger(triggerName) + FILENAME_EXTENSION_FOR_METADATA;
   }
 
   private static cleanUpClassName(className: string): string {
@@ -283,10 +252,10 @@ class sObjectNames {
   }
   public getMetadataFilenameForAT4DXSelectorBinding(): string {
     return (
-      'ApplicationFactory_SelectorBinding__mdt.' +
+      'ApplicationFactory_SelectorBinding.' +
       this.getApplicationFactorySObjectLabel() +
       '.md' +
-      filenameExtensionForMetadata
+      FILENAME_EXTENSION_FOR_METADATA
     );
   }
 
@@ -304,19 +273,19 @@ class sObjectNames {
 
   public getMetadataFilenameForAT4DXDomainBinding(): string {
     return (
-      'ApplicationFactory_DomainBinding__mdt.' +
+      'ApplicationFactory_DomainBinding.' +
       this.getApplicationFactorySObjectLabel() +
       '.md' +
-      filenameExtensionForMetadata
+      FILENAME_EXTENSION_FOR_METADATA
     );
   }
 
   public getMetadataFilenameForAT4DXUnitOfWorkBinding(): string {
     return (
-      'ApplicationFactory_UnitOfWorkBinding__mdt.' +
+      'ApplicationFactory_UnitOfWorkBinding.' +
       this.getApplicationFactorySObjectLabel() +
       '.md' +
-      filenameExtensionForMetadata
+      FILENAME_EXTENSION_FOR_METADATA
     );
   }
 

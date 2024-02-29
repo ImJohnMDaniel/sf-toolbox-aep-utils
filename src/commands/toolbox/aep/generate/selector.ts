@@ -8,6 +8,7 @@ import { Messages, SfProject } from '@salesforce/core';
 import { apexMetadataSource, selectorTemplates } from '../../../../templates/index.js';
 import { orgRelatedFlags, baseGenerateRelatedFlags, sobjectRelatedFlags } from '../../../../utils/flags.js';
 import sObjectNames from '../../../../utils/sObjectNames.js';
+import filepathNames from '../../../../utils/filepathNames.js';
 
 const { template, templateSettings } = dotpkg;
 
@@ -53,10 +54,10 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     const sobj: sObjectNames = new sObjectNames(describeResult, flags['prefix']);
 
     // ensure that all output path folders are created
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainSelectorClass()}`, {
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainSelectorClass()}`, {
       recursive: true,
     });
-    mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForTestSelectorClass()}`, {
+    mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForTestSelectorClass()}`, {
       recursive: true,
     });
 
@@ -74,7 +75,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainSelectorClass()}/${sObjectNames.getFilenameForClass(
         sobj.getSelectorImplementationClassName()
       )}`,
       implementationClassContent,
@@ -83,7 +84,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorImplementationClassName()
       )}`,
       apexMetadataContent,
@@ -99,7 +100,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForMainSelectorClass()}/${sObjectNames.getFilenameForClass(
         sobj.getSelectorInterfaceClassName()
       )}`,
       interfaceClassContent,
@@ -109,7 +110,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForMainSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForMainSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorInterfaceClassName()
       )}`,
       apexMetadataContent,
@@ -125,7 +126,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForTestSelectorClass()}/${sObjectNames.getFilenameForClass(
+      }/${filepathNames.getFilepathForTestSelectorClass()}/${sObjectNames.getFilenameForClass(
         sobj.getSelectorUnitTestClassName()
       )}`,
       unitTestClassContent,
@@ -134,7 +135,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     writeFile(
       `${basePath}/${
         flags['output-path']
-      }/${sObjectNames.getFilepathForTestSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
+      }/${filepathNames.getFilepathForTestSelectorClass()}/${sObjectNames.getMetadataFilenameForClass(
         sobj.getSelectorUnitTestClassName()
       )}`,
       apexMetadataContent,
@@ -142,7 +143,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
     );
 
     if (flags['at4dx']) {
-      mkdirSync(`${basePath}/${flags['output-path']}/${sObjectNames.getFilepathForMainSelectorBinding()}`, {
+      mkdirSync(`${basePath}/${flags['output-path']}/${filepathNames.getFilepathForMainSelectorBinding()}`, {
         recursive: true,
       });
 
@@ -152,7 +153,7 @@ export default class ToolboxAepGenerateSelector extends SfCommand<ToolboxAepGene
       writeFile(
         `${basePath}/${
           flags['output-path']
-        }/${sObjectNames.getFilepathForMainSelectorBinding()}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
+        }/${filepathNames.getFilepathForMainSelectorBinding()}/${sobj.getMetadataFilenameForAT4DXSelectorBinding()}`,
         selectorBindingContent,
         logError
       );
